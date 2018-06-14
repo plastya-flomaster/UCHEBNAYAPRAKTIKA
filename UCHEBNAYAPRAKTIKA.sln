@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCHEBNAYAPRAKTIKA", "UCHEBNAYAPRAKTIKA\UCHEBNAYAPRAKTIKA.csproj", "{99043EEF-B16A-4E98-8EB1-64835E849B7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UCHEBNAYAPRAKTIKA.Tests", "UCHEBNAYAPRAKTIKA.Tests\UCHEBNAYAPRAKTIKA.Tests.csproj", "{B4DA18DE-BC85-4363-AA56-D7EACF13966D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99043EEF-B16A-4E98-8EB1-64835E849B7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99043EEF-B16A-4E98-8EB1-64835E849B7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99043EEF-B16A-4E98-8EB1-64835E849B7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99043EEF-B16A-4E98-8EB1-64835E849B7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4DA18DE-BC85-4363-AA56-D7EACF13966D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4DA18DE-BC85-4363-AA56-D7EACF13966D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4DA18DE-BC85-4363-AA56-D7EACF13966D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4DA18DE-BC85-4363-AA56-D7EACF13966D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA8CF76F-843E-4E21-B0B7-246A572530CB}
+	EndGlobalSection
+EndGlobal
