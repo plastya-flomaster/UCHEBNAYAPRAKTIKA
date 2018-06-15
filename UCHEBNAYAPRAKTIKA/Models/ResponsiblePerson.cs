@@ -33,5 +33,11 @@ namespace UCHEBNAYAPRAKTIKA.Models
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakupka> Zakupkas { get; set; }
+
+        public string FIO()
+        {
+            if(String.IsNullOrWhiteSpace(Patronymic)) return $"{FirstName} {LastName}";
+            return $"{LastName} {FirstName} {Patronymic}";
+        }
     }
 }

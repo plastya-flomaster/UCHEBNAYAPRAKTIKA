@@ -11,14 +11,31 @@ namespace UCHEBNAYAPRAKTIKA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel;
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Zakupka
     {
         public System.Guid ZakupkaKey { get; set; }
+
+        [Required]
+        [DisplayName("Наименование закупки")]
         public string WorkTitle { get; set; }
+
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Range(0, 999999999.99)]
         public decimal ContractSum { get; set; }
+
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:C}")]
+        [Range(0, 999999999.99)]
         public decimal CashCover { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime Deadline { get; set; }
+
         public Nullable<System.Guid> ResponsiblePersonKey { get; set; }
         public Nullable<System.Guid> TimeZoneKey { get; set; }
         public Nullable<System.Guid> AuctionKey { get; set; }

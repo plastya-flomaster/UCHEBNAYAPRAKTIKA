@@ -14,6 +14,7 @@
             <th>
                 @Html.ActionLink("Регион", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
+            <th>Количество городов в базе</th>
             <th></th>
         </tr>
 
@@ -21,16 +22,19 @@
         {
             if (!item.Deleted)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.RegionName)
-                    </td>                    
-                    <td>
-                        @Html.ActionLink("Редактировать", "Edit", new { id = item.RegionKey }) |
-                        @Html.ActionLink("Подробнее", "Details", new { id = item.RegionKey }) |
-                        @Html.ActionLink("Удалить", "Delete", new { id = item.RegionKey })
-                    </td>
-                </tr>
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.RegionName)
+            </td>
+            <td>
+                <span class="badge-info">@item.NumberOfCities</span>
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.RegionKey }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.RegionKey }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.RegionKey })
+            </td>
+        </tr>
             }
 
         }

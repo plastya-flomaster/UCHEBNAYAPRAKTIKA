@@ -23,7 +23,8 @@ namespace UCHEBNAYAPRAKTIKA.Models
         public System.Guid RegionKey { get; set; }
         public string RegionName { get; set; }
         public bool Deleted { get; set; }
-    
+        public int NumberOfCities { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<City> Cities { get; set; }
     }

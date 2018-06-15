@@ -16,6 +16,15 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
     {
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
+        private int CountCities(Region region)
+        {
+            var data = from c in db.Cities
+                       where c.Deleted == false
+                       where c.RegionKey == region.RegionKey
+                       select c;
+            return data.Count();
+                                                
+        }
         // GET: Regions
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
@@ -36,6 +45,13 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
 
             var regions = from a in db.Regions
                            select a;
+            foreach(var r in regions)
+            {
+                if(!r.Deleted)
+                {
+                    r.NumberOfCities = CountCities(r);
+                }
+            }
 
             if (!String.IsNullOrEmpty(searchString))
             {
