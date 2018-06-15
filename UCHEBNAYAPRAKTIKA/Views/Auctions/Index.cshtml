@@ -1,6 +1,6 @@
 ﻿@model  PagedList.IPagedList<UCHEBNAYAPRAKTIKA.Models.Auction>
 @using PagedList.Mvc;
-<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
 
 @{
     ViewBag.Title = "Аукционы";
@@ -30,7 +30,7 @@
                         @Html.DisplayFor(modelItem => item.AuctionName)
                     </td>
                     <td>
-                        <a>@Html.DisplayFor(modelItem => item.Website)</a>
+                        @Html.DisplayFor(modelItem => item.Website)
                     </td>
                     <td>
                         @Html.ActionLink("Редактировать", "Edit", new { id = item.AuctionKey }) |
@@ -43,9 +43,8 @@
         }
 
     </table>
-    <br />
-    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
-
-    @Html.PagedListPager(Model, page => Url.Action("Index",
-        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
-</div>
+    <p>Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p>
+    <div class="pagination pagination-success">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>  

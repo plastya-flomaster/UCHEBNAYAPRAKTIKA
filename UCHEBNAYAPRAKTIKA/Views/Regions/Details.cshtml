@@ -1,0 +1,26 @@
+﻿@model UCHEBNAYAPRAKTIKA.Models.Region
+
+@{
+    ViewBag.Title = "Регион";
+}
+<div class="container p-3">
+    <div>
+        <h4>Аукцион</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt class="text-black-50">
+                Регион
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RegionName)
+            </dd>
+
+            
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.RegionKey }, htmlAttributes: new { @class = "btn btn-info" })
+        @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+    </p>
+</div>

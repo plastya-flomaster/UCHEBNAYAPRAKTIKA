@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,10 +16,49 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
         // GET: Cities
-        public ActionResult Index()
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Reg" ? "reg_desc" : "Reg";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var cities = db.Cities.Include(c => c.Region);
-            return View(cities.ToList());
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                cities = cities.Where(s => s.CityName.Contains(searchString)
+                                       || s.Region.RegionName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    cities = cities.OrderByDescending(s => s.CityName);
+                    break;
+                case "Reg":
+                    cities = cities.OrderBy(s => s.Region.RegionName);
+                    break;
+                case "reg_desc":
+                    cities = cities.OrderByDescending(s => s.Region.RegionName);
+                    break;
+                default:  // Name ascending 
+                    cities = cities.OrderBy(s => s.CityName);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(cities.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Cities/Details/5
@@ -50,7 +90,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CityKey,RegionKey,CityName,Deleted")] City city)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !IfExists(city))
             {
                 city.CityKey = Guid.NewGuid();
                 db.Cities.Add(city);
@@ -61,7 +101,14 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             ViewBag.RegionKey = new SelectList(db.Regions, "RegionKey", "RegionName", city.RegionKey);
             return View(city);
         }
-
+        private bool IfExists(City city)
+        {
+            if (db.Cities.Any(a => a.CityName == city.CityName
+              && a.RegionKey == city.RegionKey
+              && a.Deleted == city.Deleted)) return true;
+            return false;
+        }
+      
         // GET: Cities/Edit/5
         public ActionResult Edit(Guid? id)
         {
@@ -116,7 +163,9 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             City city = db.Cities.Find(id);
-            db.Cities.Remove(city);
+            city.Deleted = true;
+            db.Entry(city).State = EntityState.Modified;
+            // db.Cities.Remove(city);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

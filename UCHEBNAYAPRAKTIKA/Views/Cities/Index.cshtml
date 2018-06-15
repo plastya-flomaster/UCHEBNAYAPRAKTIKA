@@ -1,45 +1,52 @@
-﻿@model IEnumerable<UCHEBNAYAPRAKTIKA.Models.City>
+﻿@model PagedList.IPagedList<UCHEBNAYAPRAKTIKA.Models.City>
+@using PagedList.Mvc;
+
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Города";
 }
+<div class="container p-3">
+    <h2>Города</h2>
 
-<h2>Index</h2>
+    <p>
+        @Html.ActionLink("Добавить новый город", "Create")
+    </p>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CityName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Region.RegionName)
-        </th>
-        <th></th>
-    </tr>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.ActionLink("Город", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Регион", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CityName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Deleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Region.RegionName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CityKey }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CityKey }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CityKey })
-        </td>
-    </tr>
-}
+            </th>
+            <th></th>
+        </tr>
 
-</table>
+        @foreach (var item in Model)
+        {
+            if (!item.Deleted)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CityName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Region.RegionName)
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.CityKey }) |
+                    @Html.ActionLink("Подробнее", "Details", new { id = item.CityKey }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.CityKey })
+                </td>
+            </tr>
+            }
+        }
+
+    </table>
+    <p>Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p>
+    <div class="pagination pagination-success">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>

@@ -42,7 +42,7 @@
             <h1>CТРАНИЦА 404</h1>
             <h4>Вы все мне тут попортили!</h4>
             <p>Возможно вы искали что-то другое</p>
-            <a class="btn btn-success" href="Views/Home/Index.cshtml">Назад на главную</a>
+            @Html.ActionLink("Назад на главную","Index", "Home", null, htmlAttributes: new { @class = "btn btn-success" })
         </div>
 
     </div>

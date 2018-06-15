@@ -1,0 +1,32 @@
+﻿@model UCHEBNAYAPRAKTIKA.Models.Region
+
+@{
+    ViewBag.Title = "Регион";
+}
+<div class="container p-3">
+    <h3>Подтвердите удаление</h3>
+
+    <h5>Вы уверены, что хотите удалить регион?</h5>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Регион
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.RegionName)
+            </dd>
+        </dl>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Удалить" class="btn btn-danger" />
+                @Html.ActionLink("Назад", "Index")
+            </div>
+        }
+    </div>
+</div>

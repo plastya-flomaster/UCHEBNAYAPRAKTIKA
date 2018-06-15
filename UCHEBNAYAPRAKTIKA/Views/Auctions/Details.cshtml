@@ -3,28 +3,31 @@
 @{
     ViewBag.Title = "Аукцион";
 }
+<div class="container p-3">
+    <div>
+        <h4>Аукцион</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt  class="text-black-50">
+                Аукцион
+            </dt>
 
-<div>
-    <h4>Auction</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-Аукцион        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AuctionName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AuctionName)
-        </dd>
+            <dt class="text-black-50">
+                Вебсайт
+            </dt>
 
-        <dt>
-Вебсайт        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Website)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>        
-
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.AuctionKey }, htmlAttributes: new { @class = "btn btn-info" })
+        @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Редактировать", "Edit", new { id = Model.AuctionKey }, htmlAttributes: new { @class="btn btn-info" }) 
-    @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
-</p>

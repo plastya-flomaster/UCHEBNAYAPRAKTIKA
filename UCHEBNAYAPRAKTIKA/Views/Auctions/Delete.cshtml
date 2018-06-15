@@ -3,36 +3,39 @@
 @{
     ViewBag.Title = "Аукционы";
 }
+<div class="container p-3">
+    <h3>Подтвердите удаление</h3>
 
-<h2>Подтвердите удаление</h2>
+    <h5>Вы уверены, что хотите удалить аукцион?</h5>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Аукцион
+            </dt>
 
-<h3>Вы уверены, что хотите удалить аукцион?</h3>
-<div>
-    <h4>Аукцион</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-Аукцион        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.AuctionName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.AuctionName)
-        </dd>
+            <dt>
+                Вебсайт
+            </dt>
 
-        <dt>
-Вебсайт        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Website)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Website)
-        </dd>
-        
-    </dl>
+        </dl>
 
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" /> 
-            @Html.ActionLink("Назад", "Index")
+            <input type="submit" value="Удалить" class="btn btn-danger" />
+            @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
         </div>
-    }
+        }
+    </div>
 </div>

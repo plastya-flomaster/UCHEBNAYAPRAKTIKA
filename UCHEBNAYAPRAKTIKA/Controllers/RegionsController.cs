@@ -1,5 +1,4 @@
-﻿using PagedList;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -8,14 +7,16 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using UCHEBNAYAPRAKTIKA.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace UCHEBNAYAPRAKTIKA.Controllers
 {
-    public class AuctionsController : Controller
+    public class RegionsController : Controller
     {
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
-        // GET: Auctions
+        // GET: Regions
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -33,146 +34,121 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            var auctions = from a in db.Auctions
+            var regions = from a in db.Regions
                            select a;
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                auctions = auctions.Where(a => a.AuctionName.Contains(searchString)
-                                       || a.Website.Contains(searchString));
+                regions = regions.Where(a => a.RegionName.Contains(searchString));
             }
             switch (sortOrder)
             {
                 case "name_desc":
-                    auctions = auctions.OrderByDescending(s => s.AuctionName);
+                    regions = regions.OrderByDescending(s => s.RegionName);
                     break;
-               default:  // Name ascending 
-                    auctions = auctions.OrderBy(s => s.AuctionName);
+                default:  // Name ascending 
+                    regions = regions.OrderBy(s => s.RegionName);
                     break;
             }
 
             int pageSize = 3;
             int pageNumber = (page ?? 1);
-            return View(auctions.ToPagedList(pageNumber, pageSize));
+            return View(regions.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: Auctions/Details/5
+        // GET: Regions/Details/5
         public ActionResult Details(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Auction auction = db.Auctions.Find(id);
-            if (auction == null)
+            Region region = db.Regions.Find(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(auction);
+            return View(region);
         }
 
-        // GET: Auctions/Create
+        // GET: Regions/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Auctions/Create
+        // POST: Regions/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AuctionKey,AuctionName,Website,Deleted")] Auction auction)
+        public ActionResult Create([Bind(Include = "RegionKey,RegionName,Deleted")] Region region)
         {
-            if (ModelState.IsValid && !IfExists(auction))
+            if (ModelState.IsValid)
             {
-                auction.Deleted = false;
-                auction.AuctionKey = Guid.NewGuid();
-                db.Auctions.Add(auction);
+                region.RegionKey = Guid.NewGuid();
+                db.Regions.Add(region);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(auction);
-        }
-        private bool IfExists(Auction auction)
-        {
-           if(db.Auctions.Any(a => a.AuctionName == auction.AuctionName
-            && a.Website == auction.Website
-            && a.Deleted == auction.Deleted)) return true;
-            return false;
+            return View(region);
         }
 
-        // GET: Auctions/Edit/5
+        // GET: Regions/Edit/5
         public ActionResult Edit(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Auction auction = db.Auctions.Find(id);
-            if (auction == null)
+            Region region = db.Regions.Find(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(auction);
+            return View(region);
         }
 
-        // POST: Auctions/Edit/5
+        // POST: Regions/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AuctionKey,AuctionName,Website,Deleted")] Auction auction)
+        public ActionResult Edit([Bind(Include = "RegionKey,RegionName,Deleted")] Region region)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(auction).State = EntityState.Modified;
+                db.Entry(region).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(auction);
+            return View(region);
         }
 
-        // GET: Auctions/Delete/5
+        // GET: Regions/Delete/5
         public ActionResult Delete(Guid? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Auction auction = db.Auctions.Find(id);
-            if (auction == null)
+            Region region = db.Regions.Find(id);
+            if (region == null)
             {
                 return HttpNotFound();
             }
-            return View(auction);
+            return View(region);
         }
-        private void DeletePermanently()
-        {
-            var deleting = from d in db.Auctions
-                           where d.Deleted == true
-                           select d;
-            var newList = deleting.ToList();
-            int length = deleting.Count();
-            for (int i = 0; i < length; i++)
-            {
-                Auction auc = newList[i];
-                db.Auctions.Remove(auc);
-                db.SaveChanges();
-            }
-        }
-        // POST: Auctions/Delete/5
+
+        // POST: Regions/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(Guid id)
         {
-            Auction auction = db.Auctions.Find(id);
-            auction.Deleted = true;
-            db.Entry(auction).State = EntityState.Modified;
-            //db.Auctions.Remove(auction);
+            Region region = db.Regions.Find(id);
+            db.Regions.Remove(region);
             db.SaveChanges();
-            DeletePermanently();
             return RedirectToAction("Index");
         }
 

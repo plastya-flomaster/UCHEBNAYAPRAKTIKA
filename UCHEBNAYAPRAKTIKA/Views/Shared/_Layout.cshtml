@@ -4,15 +4,14 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - MyRegistry</title>
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
-    <script src="~/Scripts/popper.min.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/popper.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Content/dist/scripts/flat-ui.min.js"></script>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/dist/css/flat-ui.css" rel="stylesheet" />
-
-    @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
@@ -24,7 +23,6 @@
                 <li>@Html.ActionLink("Закупки", "Index", "Zakupkas")</li>
                 <li>@Html.ActionLink("Заказчики", "Index", "Clients")</li>
                 <li></li>
-                <li><a href="#fakelink">Регионы</a></li>
                 <li class="btn-group">
 
                     <button class="btn btn-default dropdown-toggle m-1" type="button" data-toggle="dropdown">
@@ -34,6 +32,7 @@
                         <li><a href="#">Адреса</a></li>
                         <li>@Html.ActionLink("Аукционы", "Index", "Auctions")</li>
                         <li>@Html.ActionLink("Города", "Index", "Cities")</li>
+                        <li>@Html.ActionLink("Регионы", "Index", "Regions")</li>
                         <li>@Html.ActionLink("Заказчики", "Index", "ResponsiblePersons")</li>
                         <li class="divider"></li>
                         <li><a href="#">Separated link</a></li>
@@ -54,8 +53,8 @@
     </nav><!-- /navbar -->
     <p class="mr-5 text-right">Вы вошли как <a class="navbar-link" href="https://designmodo.github.io/Flat-UI/docs/components.html?#fui-tagsinput">Администратор</a></p>
     @RenderSection("scripts", required: false)
-    @RenderBody()
 
+    @RenderBody()
     <hr />
     <footer>
         <p>&copy; @DateTime.Now.Year - Учебная практика</p>

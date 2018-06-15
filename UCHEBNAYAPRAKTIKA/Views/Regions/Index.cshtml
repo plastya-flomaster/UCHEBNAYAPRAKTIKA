@@ -1,0 +1,43 @@
+﻿@model PagedList.IPagedList<UCHEBNAYAPRAKTIKA.Models.Region>
+@using PagedList.Mvc;
+
+@{
+    ViewBag.Title = "Регионы";
+}
+<div class="container p-3">
+    <h2>Регионы</h2>
+    <p>
+        @Html.ActionLink("Добавить новый регион", "Create")
+    </p>
+    <table class="table table-hover col-10">
+        <tr>
+            <th>
+                @Html.ActionLink("Регион", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            if (!item.Deleted)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RegionName)
+                    </td>                    
+                    <td>
+                        @Html.ActionLink("Редактировать", "Edit", new { id = item.RegionKey }) |
+                        @Html.ActionLink("Подробнее", "Details", new { id = item.RegionKey }) |
+                        @Html.ActionLink("Удалить", "Delete", new { id = item.RegionKey })
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </table>
+    <p>Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p>
+    <div class="pagination pagination-success">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
