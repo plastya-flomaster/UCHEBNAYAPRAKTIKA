@@ -1,0 +1,821 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ProcurementRegModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="AdressKey" />
+          </Key>
+          <Property Name="AdressKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StreetKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="House" Type="nvarchar" MaxLength="50" />
+          <Property Name="Buildung" Type="nvarchar" MaxLength="50" />
+          <Property Name="Housing" Type="nvarchar" MaxLength="50" />
+          <Property Name="Office" Type="nvarchar" MaxLength="50" />
+          <Property Name="Postcode" Type="nvarchar" MaxLength="6" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Auction">
+          <Key>
+            <PropertyRef Name="AuctionKey" />
+          </Key>
+          <Property Name="AuctionKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="AuctionName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Website" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityKey" />
+          </Key>
+          <Property Name="CityKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RegionKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CityName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientKey" />
+          </Key>
+          <Property Name="ClientKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="OrganisationName" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="INN" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="KPP" Type="nvarchar" MaxLength="12" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogIn">
+          <Key>
+            <PropertyRef Name="UserKey" />
+          </Key>
+          <Property Name="UserKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Login" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="TypeKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="RegionKey" />
+          </Key>
+          <Property Name="RegionKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="RegionName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ResponsiblePerson">
+          <Key>
+            <PropertyRef Name="ResponsiblePersonKey" />
+          </Key>
+          <Property Name="ResponsiblePersonKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="100" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="100" />
+          <Property Name="Patronymic" Type="nvarchar" MaxLength="100" />
+          <Property Name="ClientKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PhoneNumber" Type="nchar" MaxLength="100" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="AdditionalInfo" Type="nvarchar(max)" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusKey" />
+          </Key>
+          <Property Name="StatusKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StatusString" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Street">
+          <Key>
+            <PropertyRef Name="StreetKey" />
+          </Key>
+          <Property Name="StreetKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CityKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="StreetName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="TimeZone">
+          <Key>
+            <PropertyRef Name="TimeZoneKey" />
+          </Key>
+          <Property Name="TimeZoneKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="TimeZone" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeKey" />
+          </Key>
+          <Property Name="TypeKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Type" Type="nchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Zakupka">
+          <Key>
+            <PropertyRef Name="ZakupkaKey" />
+          </Key>
+          <Property Name="ZakupkaKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="WorkTitle" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="ContractSum" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CashCover" Type="decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Deadline" Type="datetime" Nullable="false" />
+          <Property Name="ResponsiblePersonKey" Type="uniqueidentifier" />
+          <Property Name="TimeZoneKey" Type="uniqueidentifier" />
+          <Property Name="AuctionKey" Type="uniqueidentifier" />
+          <Property Name="AdressKey" Type="uniqueidentifier" />
+          <Property Name="StatusKey" Type="uniqueidentifier" />
+          <Property Name="Deleted" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Adress_Street">
+          <End Role="Street" Type="Self.Street" Multiplicity="1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Street">
+              <PropertyRef Name="StreetKey" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="StreetKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="RegionKey" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="RegionKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogIn_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="LogIn" Type="Self.LogIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="TypeKey" />
+            </Principal>
+            <Dependent Role="LogIn">
+              <PropertyRef Name="TypeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResponsiblePerson_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientKey" />
+            </Principal>
+            <Dependent Role="ResponsiblePerson">
+              <PropertyRef Name="ClientKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Street_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Street" Type="Self.Street" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityKey" />
+            </Principal>
+            <Dependent Role="Street">
+              <PropertyRef Name="CityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_Adress1">
+          <End Role="Adress" Type="Self.Adress" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="AdressKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="AdressKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="AuctionKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="AuctionKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_ResponsiblePerson">
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponsiblePerson">
+              <PropertyRef Name="ResponsiblePersonKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="ResponsiblePersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="StatusKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_TimeZone">
+          <End Role="TimeZone" Type="Self.TimeZone" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeZone">
+              <PropertyRef Name="TimeZoneKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="TimeZoneKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProcurementRegModelStoreContainer">
+          <EntitySet Name="Adress" EntityType="Self.Adress" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Auction" EntityType="Self.Auction" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="City" EntityType="Self.City" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogIn" EntityType="Self.LogIn" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Region" EntityType="Self.Region" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ResponsiblePerson" EntityType="Self.ResponsiblePerson" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Street" EntityType="Self.Street" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TimeZone" EntityType="Self.TimeZone" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Type" EntityType="Self.Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Zakupka" EntityType="Self.Zakupka" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Adress_Street" Association="Self.FK_Adress_Street">
+            <End Role="Street" EntitySet="Street" />
+            <End Role="Adress" EntitySet="Adress" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Region" Association="Self.FK_City_Region">
+            <End Role="Region" EntitySet="Region" />
+            <End Role="City" EntitySet="City" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogIn_Type" Association="Self.FK_LogIn_Type">
+            <End Role="Type" EntitySet="Type" />
+            <End Role="LogIn" EntitySet="LogIn" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResponsiblePerson_Client" Association="Self.FK_ResponsiblePerson_Client">
+            <End Role="Client" EntitySet="Client" />
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Street_City" Association="Self.FK_Street_City">
+            <End Role="City" EntitySet="City" />
+            <End Role="Street" EntitySet="Street" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_Adress1" Association="Self.FK_Zakupka_Adress1">
+            <End Role="Adress" EntitySet="Adress" />
+            <End Role="Zakupka" EntitySet="Zakupka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_Auction" Association="Self.FK_Zakupka_Auction">
+            <End Role="Auction" EntitySet="Auction" />
+            <End Role="Zakupka" EntitySet="Zakupka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_ResponsiblePerson" Association="Self.FK_Zakupka_ResponsiblePerson">
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePerson" />
+            <End Role="Zakupka" EntitySet="Zakupka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_Status" Association="Self.FK_Zakupka_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Zakupka" EntitySet="Zakupka" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_TimeZone" Association="Self.FK_Zakupka_TimeZone">
+            <End Role="TimeZone" EntitySet="TimeZone" />
+            <End Role="Zakupka" EntitySet="Zakupka" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ProcurementRegModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Adress">
+          <Key>
+            <PropertyRef Name="AdressKey" />
+          </Key>
+          <Property Name="AdressKey" Type="Guid" Nullable="false" />
+          <Property Name="StreetKey" Type="Guid" Nullable="false" />
+          <Property Name="House" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Buildung" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Housing" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Office" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Postcode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Street" Relationship="Self.FK_Adress_Street" FromRole="Adress" ToRole="Street" />
+          <NavigationProperty Name="Zakupkas" Relationship="Self.FK_Zakupka_Adress1" FromRole="Adress" ToRole="Zakupka" />
+        </EntityType>
+        <EntityType Name="Auction">
+          <Key>
+            <PropertyRef Name="AuctionKey" />
+          </Key>
+          <Property Name="AuctionKey" Type="Guid" Nullable="false" />
+          <Property Name="AuctionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Website" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Zakupkas" Relationship="Self.FK_Zakupka_Auction" FromRole="Auction" ToRole="Zakupka" />
+        </EntityType>
+        <EntityType Name="City">
+          <Key>
+            <PropertyRef Name="CityKey" />
+          </Key>
+          <Property Name="CityKey" Type="Guid" Nullable="false" />
+          <Property Name="RegionKey" Type="Guid" Nullable="false" />
+          <Property Name="CityName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Region" Relationship="Self.FK_City_Region" FromRole="City" ToRole="Region" />
+          <NavigationProperty Name="Streets" Relationship="Self.FK_Street_City" FromRole="City" ToRole="Street" />
+        </EntityType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="ClientKey" />
+          </Key>
+          <Property Name="ClientKey" Type="Guid" Nullable="false" />
+          <Property Name="OrganisationName" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="INN" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="KPP" Type="String" MaxLength="12" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ResponsiblePersons" Relationship="Self.FK_ResponsiblePerson_Client" FromRole="Client" ToRole="ResponsiblePerson" />
+        </EntityType>
+        <EntityType Name="LogIn">
+          <Key>
+            <PropertyRef Name="UserKey" />
+          </Key>
+          <Property Name="UserKey" Type="Guid" Nullable="false" />
+          <Property Name="Login1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TypeKey" Type="Guid" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Type" Relationship="Self.FK_LogIn_Type" FromRole="LogIn" ToRole="Type" />
+        </EntityType>
+        <EntityType Name="Region">
+          <Key>
+            <PropertyRef Name="RegionKey" />
+          </Key>
+          <Property Name="RegionKey" Type="Guid" Nullable="false" />
+          <Property Name="RegionName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cities" Relationship="Self.FK_City_Region" FromRole="Region" ToRole="City" />
+        </EntityType>
+        <EntityType Name="ResponsiblePerson">
+          <Key>
+            <PropertyRef Name="ResponsiblePersonKey" />
+          </Key>
+          <Property Name="ResponsiblePersonKey" Type="Guid" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Patronymic" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ClientKey" Type="Guid" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AdditionalInfo" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Client" Relationship="Self.FK_ResponsiblePerson_Client" FromRole="ResponsiblePerson" ToRole="Client" />
+          <NavigationProperty Name="Zakupkas" Relationship="Self.FK_Zakupka_ResponsiblePerson" FromRole="ResponsiblePerson" ToRole="Zakupka" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusKey" />
+          </Key>
+          <Property Name="StatusKey" Type="Guid" Nullable="false" />
+          <Property Name="StatusString" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Zakupkas" Relationship="Self.FK_Zakupka_Status" FromRole="Status" ToRole="Zakupka" />
+        </EntityType>
+        <EntityType Name="Street">
+          <Key>
+            <PropertyRef Name="StreetKey" />
+          </Key>
+          <Property Name="StreetKey" Type="Guid" Nullable="false" />
+          <Property Name="CityKey" Type="Guid" Nullable="false" />
+          <Property Name="StreetName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Adresses" Relationship="Self.FK_Adress_Street" FromRole="Street" ToRole="Adress" />
+          <NavigationProperty Name="City" Relationship="Self.FK_Street_City" FromRole="Street" ToRole="City" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="TimeZone">
+          <Key>
+            <PropertyRef Name="TimeZoneKey" />
+          </Key>
+          <Property Name="TimeZoneKey" Type="Guid" Nullable="false" />
+          <Property Name="TimeZone1" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Zakupkas" Relationship="Self.FK_Zakupka_TimeZone" FromRole="TimeZone" ToRole="Zakupka" />
+        </EntityType>
+        <EntityType Name="Type">
+          <Key>
+            <PropertyRef Name="TypeKey" />
+          </Key>
+          <Property Name="TypeKey" Type="Guid" Nullable="false" />
+          <Property Name="Type1" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="LogIns" Relationship="Self.FK_LogIn_Type" FromRole="Type" ToRole="LogIn" />
+        </EntityType>
+        <EntityType Name="Zakupka">
+          <Key>
+            <PropertyRef Name="ZakupkaKey" />
+          </Key>
+          <Property Name="ZakupkaKey" Type="Guid" Nullable="false" />
+          <Property Name="WorkTitle" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContractSum" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="CashCover" Type="Decimal" Precision="18" Scale="0" Nullable="false" />
+          <Property Name="Deadline" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ResponsiblePersonKey" Type="Guid" />
+          <Property Name="TimeZoneKey" Type="Guid" />
+          <Property Name="AuctionKey" Type="Guid" />
+          <Property Name="AdressKey" Type="Guid" />
+          <Property Name="StatusKey" Type="Guid" />
+          <Property Name="Deleted" Type="Boolean" />
+          <NavigationProperty Name="Adress" Relationship="Self.FK_Zakupka_Adress1" FromRole="Zakupka" ToRole="Adress" />
+          <NavigationProperty Name="Auction" Relationship="Self.FK_Zakupka_Auction" FromRole="Zakupka" ToRole="Auction" />
+          <NavigationProperty Name="ResponsiblePerson" Relationship="Self.FK_Zakupka_ResponsiblePerson" FromRole="Zakupka" ToRole="ResponsiblePerson" />
+          <NavigationProperty Name="Status" Relationship="Self.FK_Zakupka_Status" FromRole="Zakupka" ToRole="Status" />
+          <NavigationProperty Name="TimeZone" Relationship="Self.FK_Zakupka_TimeZone" FromRole="Zakupka" ToRole="TimeZone" />
+        </EntityType>
+        <Association Name="FK_Adress_Street">
+          <End Role="Street" Type="Self.Street" Multiplicity="1" />
+          <End Role="Adress" Type="Self.Adress" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Street">
+              <PropertyRef Name="StreetKey" />
+            </Principal>
+            <Dependent Role="Adress">
+              <PropertyRef Name="StreetKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_Adress1">
+          <End Role="Adress" Type="Self.Adress" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Adress">
+              <PropertyRef Name="AdressKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="AdressKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_Auction">
+          <End Role="Auction" Type="Self.Auction" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Auction">
+              <PropertyRef Name="AuctionKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="AuctionKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_City_Region">
+          <End Role="Region" Type="Self.Region" Multiplicity="1" />
+          <End Role="City" Type="Self.City" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Region">
+              <PropertyRef Name="RegionKey" />
+            </Principal>
+            <Dependent Role="City">
+              <PropertyRef Name="RegionKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Street_City">
+          <End Role="City" Type="Self.City" Multiplicity="1" />
+          <End Role="Street" Type="Self.Street" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="City">
+              <PropertyRef Name="CityKey" />
+            </Principal>
+            <Dependent Role="Street">
+              <PropertyRef Name="CityKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResponsiblePerson_Client">
+          <End Role="Client" Type="Self.Client" Multiplicity="1" />
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Client">
+              <PropertyRef Name="ClientKey" />
+            </Principal>
+            <Dependent Role="ResponsiblePerson">
+              <PropertyRef Name="ClientKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_LogIn_Type">
+          <End Role="Type" Type="Self.Type" Multiplicity="1" />
+          <End Role="LogIn" Type="Self.LogIn" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Type">
+              <PropertyRef Name="TypeKey" />
+            </Principal>
+            <Dependent Role="LogIn">
+              <PropertyRef Name="TypeKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_ResponsiblePerson">
+          <End Role="ResponsiblePerson" Type="Self.ResponsiblePerson" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ResponsiblePerson">
+              <PropertyRef Name="ResponsiblePersonKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="ResponsiblePersonKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="StatusKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Zakupka_TimeZone">
+          <End Role="TimeZone" Type="Self.TimeZone" Multiplicity="0..1" />
+          <End Role="Zakupka" Type="Self.Zakupka" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TimeZone">
+              <PropertyRef Name="TimeZoneKey" />
+            </Principal>
+            <Dependent Role="Zakupka">
+              <PropertyRef Name="TimeZoneKey" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ProcurementRegEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Adresses" EntityType="Self.Adress" />
+          <EntitySet Name="Auctions" EntityType="Self.Auction" />
+          <EntitySet Name="Cities" EntityType="Self.City" />
+          <EntitySet Name="Clients" EntityType="Self.Client" />
+          <EntitySet Name="LogIns" EntityType="Self.LogIn" />
+          <EntitySet Name="Regions" EntityType="Self.Region" />
+          <EntitySet Name="ResponsiblePersons" EntityType="Self.ResponsiblePerson" />
+          <EntitySet Name="Status" EntityType="Self.Status" />
+          <EntitySet Name="Streets" EntityType="Self.Street" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <EntitySet Name="TimeZones" EntityType="Self.TimeZone" />
+          <EntitySet Name="Types" EntityType="Self.Type" />
+          <EntitySet Name="Zakupkas" EntityType="Self.Zakupka" />
+          <AssociationSet Name="FK_Adress_Street" Association="Self.FK_Adress_Street">
+            <End Role="Street" EntitySet="Streets" />
+            <End Role="Adress" EntitySet="Adresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_Adress1" Association="Self.FK_Zakupka_Adress1">
+            <End Role="Adress" EntitySet="Adresses" />
+            <End Role="Zakupka" EntitySet="Zakupkas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_Auction" Association="Self.FK_Zakupka_Auction">
+            <End Role="Auction" EntitySet="Auctions" />
+            <End Role="Zakupka" EntitySet="Zakupkas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_City_Region" Association="Self.FK_City_Region">
+            <End Role="Region" EntitySet="Regions" />
+            <End Role="City" EntitySet="Cities" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Street_City" Association="Self.FK_Street_City">
+            <End Role="City" EntitySet="Cities" />
+            <End Role="Street" EntitySet="Streets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResponsiblePerson_Client" Association="Self.FK_ResponsiblePerson_Client">
+            <End Role="Client" EntitySet="Clients" />
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePersons" />
+          </AssociationSet>
+          <AssociationSet Name="FK_LogIn_Type" Association="Self.FK_LogIn_Type">
+            <End Role="Type" EntitySet="Types" />
+            <End Role="LogIn" EntitySet="LogIns" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_ResponsiblePerson" Association="Self.FK_Zakupka_ResponsiblePerson">
+            <End Role="ResponsiblePerson" EntitySet="ResponsiblePersons" />
+            <End Role="Zakupka" EntitySet="Zakupkas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_Status" Association="Self.FK_Zakupka_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Zakupka" EntitySet="Zakupkas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Zakupka_TimeZone" Association="Self.FK_Zakupka_TimeZone">
+            <End Role="TimeZone" EntitySet="TimeZones" />
+            <End Role="Zakupka" EntitySet="Zakupkas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProcurementRegModelStoreContainer" CdmEntityContainer="ProcurementRegEntities">
+          <EntitySetMapping Name="Adresses">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Adress">
+              <MappingFragment StoreEntitySet="Adress">
+                <ScalarProperty Name="AdressKey" ColumnName="AdressKey" />
+                <ScalarProperty Name="StreetKey" ColumnName="StreetKey" />
+                <ScalarProperty Name="House" ColumnName="House" />
+                <ScalarProperty Name="Buildung" ColumnName="Buildung" />
+                <ScalarProperty Name="Housing" ColumnName="Housing" />
+                <ScalarProperty Name="Office" ColumnName="Office" />
+                <ScalarProperty Name="Postcode" ColumnName="Postcode" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Auctions">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Auction">
+              <MappingFragment StoreEntitySet="Auction">
+                <ScalarProperty Name="AuctionKey" ColumnName="AuctionKey" />
+                <ScalarProperty Name="AuctionName" ColumnName="AuctionName" />
+                <ScalarProperty Name="Website" ColumnName="Website" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="ProcurementRegModel.City">
+              <MappingFragment StoreEntitySet="City">
+                <ScalarProperty Name="CityKey" ColumnName="CityKey" />
+                <ScalarProperty Name="RegionKey" ColumnName="RegionKey" />
+                <ScalarProperty Name="CityName" ColumnName="CityName" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="ClientKey" ColumnName="ClientKey" />
+                <ScalarProperty Name="OrganisationName" ColumnName="OrganisationName" />
+                <ScalarProperty Name="INN" ColumnName="INN" />
+                <ScalarProperty Name="KPP" ColumnName="KPP" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="LogIns">
+            <EntityTypeMapping TypeName="ProcurementRegModel.LogIn">
+              <MappingFragment StoreEntitySet="LogIn">
+                <ScalarProperty Name="UserKey" ColumnName="UserKey" />
+                <ScalarProperty Name="Login1" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="TypeKey" ColumnName="TypeKey" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Regions">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Region">
+              <MappingFragment StoreEntitySet="Region">
+                <ScalarProperty Name="RegionKey" ColumnName="RegionKey" />
+                <ScalarProperty Name="RegionName" ColumnName="RegionName" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ResponsiblePersons">
+            <EntityTypeMapping TypeName="ProcurementRegModel.ResponsiblePerson">
+              <MappingFragment StoreEntitySet="ResponsiblePerson">
+                <ScalarProperty Name="ResponsiblePersonKey" ColumnName="ResponsiblePersonKey" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Patronymic" ColumnName="Patronymic" />
+                <ScalarProperty Name="ClientKey" ColumnName="ClientKey" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="AdditionalInfo" ColumnName="AdditionalInfo" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Status">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Status">
+              <MappingFragment StoreEntitySet="Status">
+                <ScalarProperty Name="StatusKey" ColumnName="StatusKey" />
+                <ScalarProperty Name="StatusString" ColumnName="StatusString" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Streets">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Street">
+              <MappingFragment StoreEntitySet="Street">
+                <ScalarProperty Name="StreetKey" ColumnName="StreetKey" />
+                <ScalarProperty Name="CityKey" ColumnName="CityKey" />
+                <ScalarProperty Name="StreetName" ColumnName="StreetName" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="ProcurementRegModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TimeZones">
+            <EntityTypeMapping TypeName="ProcurementRegModel.TimeZone">
+              <MappingFragment StoreEntitySet="TimeZone">
+                <ScalarProperty Name="TimeZoneKey" ColumnName="TimeZoneKey" />
+                <ScalarProperty Name="TimeZone1" ColumnName="TimeZone" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Type">
+              <MappingFragment StoreEntitySet="Type">
+                <ScalarProperty Name="TypeKey" ColumnName="TypeKey" />
+                <ScalarProperty Name="Type1" ColumnName="Type" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Zakupkas">
+            <EntityTypeMapping TypeName="ProcurementRegModel.Zakupka">
+              <MappingFragment StoreEntitySet="Zakupka">
+                <ScalarProperty Name="ZakupkaKey" ColumnName="ZakupkaKey" />
+                <ScalarProperty Name="WorkTitle" ColumnName="WorkTitle" />
+                <ScalarProperty Name="ContractSum" ColumnName="ContractSum" />
+                <ScalarProperty Name="CashCover" ColumnName="CashCover" />
+                <ScalarProperty Name="Deadline" ColumnName="Deadline" />
+                <ScalarProperty Name="ResponsiblePersonKey" ColumnName="ResponsiblePersonKey" />
+                <ScalarProperty Name="TimeZoneKey" ColumnName="TimeZoneKey" />
+                <ScalarProperty Name="AuctionKey" ColumnName="AuctionKey" />
+                <ScalarProperty Name="AdressKey" ColumnName="AdressKey" />
+                <ScalarProperty Name="StatusKey" ColumnName="StatusKey" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

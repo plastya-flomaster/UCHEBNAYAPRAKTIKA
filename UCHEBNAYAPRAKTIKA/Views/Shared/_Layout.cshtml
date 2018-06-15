@@ -3,40 +3,62 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
+    <title>@ViewBag.Title - MyRegistry</title>
+
+    <script src="~/Scripts/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/jquery-3.3.1.js"></script>
+    <script src="~/Content/dist/scripts/flat-ui.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/dist/css/flat-ui.css" rel="stylesheet" />
+
     @Scripts.Render("~/bundles/modernizr")
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <nav class="navbar navbar-default navbar-expand-lg" role="navigation">
+        <a class="navbar-brand" href="#">MyRegistry</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-01"></button>
+        <div class="collapse navbar-collapse" id="navbar-collapse-01">
+            <ul class="nav navbar-nav mr-auto">
+                <li>@Html.ActionLink("Закупки", "Index", "Zakupkas")</li>
+                <li>@Html.ActionLink("Заказчики", "Index", "Clients")</li>
+                <li></li>
+                <li><a href="#fakelink">Регионы</a></li>
+                <li class="btn-group">
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+                    <button class="btn btn-default dropdown-toggle m-1" type="button" data-toggle="dropdown">
+                        Подробный справочник
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Адреса</a></li>
+                        <li>@Html.ActionLink("Аукционы", "Index", "Auctions")</li>
+                        <li>@Html.ActionLink("Города", "Index", "Cities")</li>
+                        <li>@Html.ActionLink("Заказчики", "Index", "ResponsiblePersons")</li>
+                        <li class="divider"></li>
+                        <li><a href="#">Separated link</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <form class="navbar-form form-inline" action="#" role="search">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input class="form-control" type="search" placeholder="Искать..." name="SearchString">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn"><span class="fui-search"></span></button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+        </div><!-- /.navbar-collapse -->
+    </nav><!-- /navbar -->
+    <p class="mr-5 text-right">Вы вошли как <a class="navbar-link" href="https://designmodo.github.io/Flat-UI/docs/components.html?#fui-tagsinput">Администратор</a></p>
     @RenderSection("scripts", required: false)
+    @RenderBody()
+
+    <hr />
+    <footer>
+        <p>&copy; @DateTime.Now.Year - Учебная практика</p>
+    </footer>
 </body>
 </html>

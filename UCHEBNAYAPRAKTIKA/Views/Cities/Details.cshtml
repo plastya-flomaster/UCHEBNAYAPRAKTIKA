@@ -1,0 +1,42 @@
+﻿@model UCHEBNAYAPRAKTIKA.Models.City
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>City</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CityName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CityName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Region.RegionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Region.RegionName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.CityKey }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

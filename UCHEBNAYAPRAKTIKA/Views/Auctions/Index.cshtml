@@ -1,0 +1,51 @@
+﻿@model  PagedList.IPagedList<UCHEBNAYAPRAKTIKA.Models.Auction>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Аукционы";
+}
+<div class="container p-3">
+    <h2>Аукционы</h2>
+    <p>
+        @Html.ActionLink("Добавить новый аукцион", "Create")
+    </p>
+    <table class="table table-hover col-10">
+        <tr>
+            <th>
+                @Html.ActionLink("Аукцион", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                Сайт
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            if (!item.Deleted)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AuctionName)
+                    </td>
+                    <td>
+                        <a>@Html.DisplayFor(modelItem => item.Website)</a>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Редактировать", "Edit", new { id = item.AuctionKey }) |
+                        @Html.ActionLink("Подробнее", "Details", new { id = item.AuctionKey }) |
+                        @Html.ActionLink("Удалить", "Delete", new { id = item.AuctionKey })
+                    </td>
+                </tr>
+            }
+
+        }
+
+    </table>
+    <br />
+    Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount
+
+    @Html.PagedListPager(Model, page => Url.Action("Index",
+        new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>

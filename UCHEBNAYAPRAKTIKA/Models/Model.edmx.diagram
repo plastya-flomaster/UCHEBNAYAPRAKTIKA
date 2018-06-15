@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="5081f85d39bf466ebd3a1b6a8e367986" Name="Diagram1">
+        <EntityTypeShape EntityType="ProcurementRegModel.Adress" Width="1.5" PointX="7" PointY="1.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.Auction" Width="1.5" PointX="5.875" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.City" Width="1.5" PointX="3" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.Client" Width="1.5" PointX="3.875" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.LogIn" Width="1.5" PointX="12" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.Region" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.ResponsiblePerson" Width="1.5" PointX="6.5" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.Status" Width="1.5" PointX="7.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.Street" Width="1.5" PointX="4.875" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.sysdiagram" Width="1.5" PointX="3.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.TimeZone" Width="1.5" PointX="9.125" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.Type" Width="1.5" PointX="9.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="ProcurementRegModel.Zakupka" Width="1.5" PointX="9.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="ProcurementRegModel.FK_Adress_Street" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_Zakupka_Adress1" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_Zakupka_Auction" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_City_Region" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_Street_City" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_ResponsiblePerson_Client" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_LogIn_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_Zakupka_ResponsiblePerson" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_Zakupka_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="ProcurementRegModel.FK_Zakupka_TimeZone" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

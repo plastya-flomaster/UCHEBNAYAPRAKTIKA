@@ -1,0 +1,38 @@
+﻿@model UCHEBNAYAPRAKTIKA.Models.Auction
+
+@{
+    ViewBag.Title = "Аукционы";
+}
+
+<h2>Подтвердите удаление</h2>
+
+<h3>Вы уверены, что хотите удалить аукцион?</h3>
+<div>
+    <h4>Аукцион</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+Аукцион        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.AuctionName)
+        </dd>
+
+        <dt>
+Вебсайт        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Website)
+        </dd>
+        
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> 
+            @Html.ActionLink("Назад", "Index")
+        </div>
+    }
+</div>
