@@ -1,0 +1,98 @@
+﻿@model UCHEBNAYAPRAKTIKA.Models.Zakupka
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Zakupka</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.WorkTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.WorkTitle)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContractSum)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContractSum)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CashCover)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CashCover)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deadline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Deleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Deleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adress.House)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adress.House)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Auction.AuctionName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Auction.AuctionName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResponsiblePerson.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResponsiblePerson.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status.StatusString)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Status.StatusString)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeZone.TimeZone1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeZone.TimeZone1)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ZakupkaKey }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

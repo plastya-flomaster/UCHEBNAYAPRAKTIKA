@@ -11,7 +11,8 @@ namespace UCHEBNAYAPRAKTIKA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Auction
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -21,7 +22,9 @@ namespace UCHEBNAYAPRAKTIKA.Models
         }
     
         public System.Guid AuctionKey { get; set; }
+        [Required]
         public string AuctionName { get; set; }
+        [Required]
         public string Website { get; set; }
         public bool Deleted { get; set; }
     

@@ -164,6 +164,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AdressesController.cs" />
     <Compile Include="Controllers\AuctionsController.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\ClientsController.cs" />
@@ -171,6 +172,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\ResponsiblePersonsController.cs" />
+    <Compile Include="Controllers\StreetsController.cs" />
+    <Compile Include="Controllers\ZakupkasController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -207,6 +210,7 @@
     <Compile Include="Models\Region.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Repo.cs" />
     <Compile Include="Models\ResponsiblePerson.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -352,6 +356,22 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Clients\ViewPeople.cshtml" />
+    <Content Include="Views\Streets\Create.cshtml" />
+    <Content Include="Views\Streets\Delete.cshtml" />
+    <Content Include="Views\Streets\Details.cshtml" />
+    <Content Include="Views\Streets\Edit.cshtml" />
+    <Content Include="Views\Streets\Index.cshtml" />
+    <Content Include="Views\Adresses\Create.cshtml" />
+    <Content Include="Views\Adresses\Delete.cshtml" />
+    <Content Include="Views\Adresses\Details.cshtml" />
+    <Content Include="Views\Adresses\Edit.cshtml" />
+    <Content Include="Views\Adresses\Index.cshtml" />
+    <Content Include="Views\Zakupkas\Create.cshtml" />
+    <Content Include="Views\Zakupkas\Delete.cshtml" />
+    <Content Include="Views\Zakupkas\Details.cshtml" />
+    <Content Include="Views\Zakupkas\Edit.cshtml" />
+    <Content Include="Views\Zakupkas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -1,0 +1,69 @@
+﻿@model IEnumerable<UCHEBNAYAPRAKTIKA.Models.Adress>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.House)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Buildung)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Housing)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Office)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Postcode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Street.StreetName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.House)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Buildung)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Housing)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Office)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Postcode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street.StreetName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.AdressKey }) |
+            @Html.ActionLink("Details", "Details", new { id=item.AdressKey }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.AdressKey })
+        </td>
+    </tr>
+}
+
+</table>

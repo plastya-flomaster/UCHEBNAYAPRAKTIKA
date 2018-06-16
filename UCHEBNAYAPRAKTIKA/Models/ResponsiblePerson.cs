@@ -11,7 +11,8 @@ namespace UCHEBNAYAPRAKTIKA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class ResponsiblePerson
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,25 +20,98 @@ namespace UCHEBNAYAPRAKTIKA.Models
         {
             this.Zakupkas = new HashSet<Zakupka>();
         }
-    
+        private string defPat = "Не указано";
+        private string defNum = "Не указан";
+        private string defE = "Не указан";
+        private string defi = "Не указанo";
+        private string fio;
+
         public System.Guid ResponsiblePersonKey { get; set; }
+        [Required]
         public string FirstName { get; set; }
+        [Required]
         public string LastName { get; set; }
-        public string Patronymic { get; set; }
+        public string Patronymic
+        {
+            get
+            {
+                return defPat;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    defPat = value;
+                }
+            }
+        }
         public System.Guid ClientKey { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
-        public string AdditionalInfo { get; set; }
+        public string PhoneNumber {
+            get
+            {
+                return defNum;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    defNum = value;
+                }
+            }
+        }
+        public string Email {
+            get
+            {
+                return defE;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    defE = value;
+                }
+            }
+        }
+        public string AdditionalInfo
+        {
+            get
+            {
+                return defi;
+            }
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    defi = value;
+                }
+            }
+        }
         public bool Deleted { get; set; }
-    
+        public string FIO
+            {
+            get
+            {
+                return fio;
+            }
+            set
+            {
+                if (Patronymic == "Не указано")
+                {
+                    fio = $"{LastName} {FirstName}";
+                }
+                else
+                {
+                    fio = $"{LastName} {FirstName} {Patronymic}";
+                }
+            }
+        }
         public virtual Client Client { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakupka> Zakupkas { get; set; }
 
-        public string FIO()
-        {
-            if(String.IsNullOrWhiteSpace(Patronymic)) return $"{FirstName} {LastName}";
-            return $"{LastName} {FirstName} {Patronymic}";
-        }
+       
+            
+           
+       
     }
 }

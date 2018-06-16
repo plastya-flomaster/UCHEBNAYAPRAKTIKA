@@ -11,12 +11,16 @@ namespace UCHEBNAYAPRAKTIKA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class LogIn
     {
         public System.Guid UserKey { get; set; }
+        [Required]
         public string Login1 { get; set; }
+        [Required]
         public string Password { get; set; }
+
         public System.Guid TypeKey { get; set; }
         public bool Deleted { get; set; }
     

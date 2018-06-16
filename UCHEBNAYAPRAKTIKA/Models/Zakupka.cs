@@ -19,7 +19,6 @@ namespace UCHEBNAYAPRAKTIKA.Models
         public System.Guid ZakupkaKey { get; set; }
 
         [Required]
-        [DisplayName("Наименование закупки")]
         public string WorkTitle { get; set; }
 
         [Required]

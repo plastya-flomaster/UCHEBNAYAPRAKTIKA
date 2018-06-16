@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -13,12 +14,70 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
     public class ClientsController : Controller
     {
         private ProcurementRegEntities db = new ProcurementRegEntities();
+        Repo repo = new Repo();
 
-        // GET: Clients
-        public ActionResult Index()
+        public ActionResult ViewPeople()
         {
-            return View(db.Clients.ToList());
+            ViewData["People"] = repo.GetPeople();
+            return View();
         }
+        // GET: Clients
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+            {
+                ViewBag.CurrentSort = sortOrder;
+                ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+                ViewBag.DateSortParm = sortOrder == "Inn" ? "inn_desc" : "Inn";
+                ViewBag.KppSortParm = sortOrder == "Kpp" ? "kpp_desc" : "Kpp";
+
+
+            if (searchString != null)
+                {
+                    page = 1;
+                }
+                else
+                {
+                    searchString = currentFilter;
+                }
+
+                ViewBag.CurrentFilter = searchString;
+
+                var clients = from s in db.Clients
+                               select s;
+
+                if (!String.IsNullOrEmpty(searchString))
+                {
+                    clients = clients.Where(s => s.OrganisationName.Contains(searchString)
+                                           || s.INN.Contains(searchString)
+                                           || s.KPP.Contains(searchString));
+                }
+                switch (sortOrder)
+                {
+                    case "name_desc":
+                        clients = clients.OrderByDescending(s => s.OrganisationName);
+                        break;
+                    case "inn_desc":
+                        clients = clients.OrderByDescending(s => s.INN);
+                        break;
+                    case "Inn":
+                    clients = clients.OrderByDescending(s => s.INN);
+                        break;
+                    case "kpp_desc":
+                    clients = clients.OrderByDescending(s => s.KPP);
+                        break;
+                    case "Kpp":
+                        clients = clients.OrderByDescending(s => s.KPP);
+                        break;
+
+                    default:  // Name ascending 
+                        clients = clients.OrderBy(s => s.OrganisationName);
+                        break;
+                }
+
+                int pageSize = 5;
+                int pageNumber = (page ?? 1);
+                return View(clients.ToPagedList(pageNumber, pageSize));
+            }
+ 
 
         // GET: Clients/Details/5
         public ActionResult Details(Guid? id)
@@ -48,7 +107,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ClientKey,OrganisationName,INN,KPP,Deleted")] Client client)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !IfExists(client))
             {
                 client.ClientKey = Guid.NewGuid();
                 db.Clients.Add(client);
@@ -57,6 +116,15 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             }
 
             return View(client);
+        }
+
+        private bool IfExists(Client cl)
+        {
+            if (db.Clients.Any(a => a.OrganisationName == cl.OrganisationName
+              && a.INN == cl.INN
+               && a.KPP == cl.KPP
+              && a.Deleted == cl.Deleted)) return true;
+            return false;
         }
 
         // GET: Clients/Edit/5
@@ -111,7 +179,9 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             Client client = db.Clients.Find(id);
-            db.Clients.Remove(client);
+            client.Deleted = true;
+            db.Entry(client).State = EntityState.Modified;
+          //  db.Clients.Remove(client);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

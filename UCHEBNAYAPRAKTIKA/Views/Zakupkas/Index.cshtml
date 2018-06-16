@@ -1,0 +1,87 @@
+﻿@model IEnumerable<UCHEBNAYAPRAKTIKA.Models.Zakupka>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.WorkTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContractSum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CashCover)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deadline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Deleted)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adress.House)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Auction.AuctionName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ResponsiblePerson.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status.StatusString)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TimeZone.TimeZone1)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.WorkTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContractSum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CashCover)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deadline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Deleted)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adress.House)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Auction.AuctionName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ResponsiblePerson.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status.StatusString)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TimeZone.TimeZone1)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ZakupkaKey }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ZakupkaKey }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ZakupkaKey })
+        </td>
+    </tr>
+}
+
+</table>

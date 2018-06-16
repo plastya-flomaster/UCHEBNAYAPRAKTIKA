@@ -3,48 +3,64 @@
 @{
     ViewBag.Title = "Details";
 }
+<body>
+    <script>
+        $(document).ready(function () {
+            $("#facultyDetailSection").fadeOut(0);
+            $("#studentDetailSection").fadeOut(0);
+        });
 
-<h2>Details</h2>
+        var selectedCourseName;
 
-<div>
-    <h4>Client</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.OrganisationName)
-        </dt>
+        $("#sltCourse").change(function () {
+            selectedCourseName = $("#sltCourse").val().trim();
 
-        <dd>
-            @Html.DisplayFor(model => model.OrganisationName)
-        </dd>
+            if (selectedCourseName === "Select Course") {
+                $("#facultyDetailSection").fadeOut();
+                $("#studentDetailSection").fadeOut();
+            }
+            else {
+                getFacultyTable();
+                getStudentTable();
+                $("#facultyDetailSection").fadeIn();
+                $("#studentDetailSection").fadeIn();
+            }
+        });
 
-        <dt>
-            @Html.DisplayNameFor(model => model.INN)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.INN)
-        </dd>
+    </script>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.KPP)
-        </dt>
+    <div class="container p-3">
 
-        <dd>
-            @Html.DisplayFor(model => model.KPP)
-        </dd>
+        <div>
+            <h4>Заказчик</h4>
+            <hr />
+            <dl class="dl-horizontal">
+                <dt>Наименование организации</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.OrganisationName)
+                </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
+                <dt>ИНН</dt>
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ClientKey }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+                <dd>
+                    @Html.DisplayFor(model => model.INN)
+                </dd>
+
+                <dt>КПП</dt>
+                <dd>
+                    @Html.DisplayFor(model => model.KPP)
+                </dd>
+
+            </dl>
+        </div>
+        <h4>Ответственные лица в организации</h4>
+        <hr />
+
+        <p>
+            @Html.ActionLink("Редактировать", "Edit", new { id = Model.ClientKey }, htmlAttributes: new { @class = "btn btn-info" })
+            @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+        </p>
+    </div>
+</body>

@@ -1,98 +1,72 @@
 ﻿@model UCHEBNAYAPRAKTIKA.Models.ResponsiblePerson
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Ответственное лицо";
 }
+<div class="container p-3">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
     <div class="form-horizontal">
-        <h4>ResponsiblePerson</h4>
+        <h4>Создать новое ответственное лицо</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+        <div class="form-group row">
+            <p class="control-label col-md-2 text-md-right">Укажите организацию</p>
+            <div class="col-md-4">
+                @Html.DropDownList("ClientKey", null, "Выберите организацию", htmlAttributes: new { @class = "form-control btn btn-primary dropdown-toggle" })
+                @Html.ValidationMessageFor(model => model.ClientKey, "", new { @class = "text-danger" })
+                <p class="text-black-50">Если вы не нашли организацию в выпадающем списке, то добавьте её @Html.ActionLink("здесь", "Index", "Clients/Create")</p>
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group row">
+            <p class="control-label col-md-2 text-md-right">Фамилия</p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control col-md-4 text-box" id="LastName" name="LastName" type="text" placeholder="Пласкевич" data-val-required="Введите имя">
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Patronymic, htmlAttributes: new { @class = "control-label col-md-2" })
+            <p class="control-label col-md-2 text-md-right">Имя</p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Patronymic, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control col-md-4 text-box" id="FirstName" name="FirstName" type="text" placeholder="Анастасия" data-val-required="Введите фамилию">
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+
+            <p class="control-label col-md-2 text-md-right">Отчество</p>
+            <div class="col-md-10">
+                <input class="form-control col-md-4 text-box" id="Patronymic" name="Patronymic" type="text" placeholder="Викторовна" data-val-required="Введите отчество">
                 @Html.ValidationMessageFor(model => model.Patronymic, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.ClientKey, "ClientKey", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group row">
+            <p class="control-label col-md-2 text-md-right">Телефон</p>
             <div class="col-md-10">
-                @Html.DropDownList("ClientKey", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.ClientKey, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.PhoneNumber, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control col-md-4 text-box" id="PhoneNumber" name="PhoneNumber" type="text" placeholder="234-56-56" data-val-required="Введите телефон">
                 @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <p class="control-label col-md-2 text-md-right">Email</p>
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
+                <input class="form-control col-md-4 text-box" id="Email" name="Email" type="email" placeholder="nastya@gmail.com" data-val-required="Введите почту">
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.AdditionalInfo, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.AdditionalInfo, new { htmlAttributes = new { @class = "form-control" } })
+            <p class="control-label col-md-2 text-md-right">Заметки</p>
+            <div class="col-md-3">
+                <textarea class="form-control" data-val="true" id="AdditionalInfo" name="AdditionalInfo" 
+                          rows="2" placeholder="Звонить после обеда"> </textarea>
                 @Html.ValidationMessageFor(model => model.AdditionalInfo, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Deleted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Deleted)
-                    @Html.ValidationMessageFor(model => model.Deleted, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
+       
+        <div class="form-group row">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Добавить" class="btn btn-success" />
+                @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
             </div>
         </div>
     </div>
-}
+    }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

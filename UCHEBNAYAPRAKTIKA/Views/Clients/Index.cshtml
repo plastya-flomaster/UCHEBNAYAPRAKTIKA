@@ -1,51 +1,56 @@
-﻿@model IEnumerable<UCHEBNAYAPRAKTIKA.Models.Client>
+﻿@model PagedList.IPagedList<UCHEBNAYAPRAKTIKA.Models.Client>
+@using PagedList.Mvc;
 
 @{
     ViewBag.Title = "Index";
 }
+<div class="container p-3">
+    <h2>Заказчики</h2>
 
-<h2>Index</h2>
+    <p>
+        @Html.ActionLink("Добавить нового заказчика", "Create")
+    </p>
+    <table class="table table-hover">
+        <tr>
+            <th>
+                @Html.ActionLink("Наименование организации", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("ИНН", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("КПП", "Index", new { sortOrder = ViewBag.KppSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th></th>
+        </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.OrganisationName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.INN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KPP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </th>
-        <th></th>
-    </tr>
+        @foreach (var item in Model)
+        {
+            if (!item.Deleted)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OrganisationName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.INN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.KPP)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Редактировать", "Edit", new { id = item.ClientKey }) |
+                        @Html.ActionLink("Подробнее", "Details", new { id = item.ClientKey }) |
+                        @Html.ActionLink("Удалить", "Delete", new { id = item.ClientKey })
+                    </td>
+                </tr>
+            }
+        }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrganisationName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.INN)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KPP)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Deleted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ClientKey }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ClientKey }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ClientKey })
-        </td>
-    </tr>
-}
+    </table>
+    <p>Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p>
+    <div class="pagination pagination-success">
+        @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+    </div>
+</div>
 
-</table>

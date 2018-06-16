@@ -3,64 +3,41 @@
 @{
     ViewBag.Title = "Create";
 }
+<div class="container p-3">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
 
-<h2>Create</h2>
-
-
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Client</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.OrganisationName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.OrganisationName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.OrganisationName, "", new { @class = "text-danger" })
+        <div class="form-horizontal">
+            <h4>Заказчик</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">Наименование организации
+                <div class="col-md-5">
+                    <textarea class="form-control" data-val="true" data-val-required="Требуется поле название организации"
+                              id="OrganisationName" name="OrganisationName" rows="4" placeholder="НАЦИОНАЛЬНЫЙ ИССЛЕДОВАТЕЛЬСКИЙ УНИВЕРСИТЕТ ВЫСШАЯ ШКОЛА ЭКОНОМИКИ"> </textarea>
+                    @Html.ValidationMessageFor(model => model.OrganisationName, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.INN, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.INN, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.INN, "", new { @class = "text-danger" })
+            <div class="form-group"> ИНН /КПП 
+            <div class="col-md-5">
+                             <div class="row">
+                                 <input class="form-control col-md-4 text-box" id="INN" name="INN" type="text" placeholder="123456789012" data-val-required="Укажите инн">
+                                 <h6 class="ml-3 mr-3"> / </h6>
+                                 <input class="form-control col-md-4 text-box" id="KPP" name="KPP" type="text" placeholder="123456789012">
+                             </div>
+    @Html.ValidationMessageFor(model => model.INN, "", new { @class = "text-danger" })
+    @Html.ValidationMessageFor(model => model.KPP, "", new { @class = "text-danger" })
+</div>
             </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.KPP, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.KPP, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.KPP, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Deleted, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Deleted)
-                    @Html.ValidationMessageFor(model => model.Deleted, "", new { @class = "text-danger" })
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Добавить" class="btn btn-success" />
+                    @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
                 </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

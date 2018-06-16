@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using UCHEBNAYAPRAKTIKA.Models;
+using PagedList.Mvc;
+using PagedList;
 
 namespace UCHEBNAYAPRAKTIKA.Controllers
 {
@@ -15,10 +17,63 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
         // GET: ResponsiblePersons
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            var responsiblePersons = db.ResponsiblePersons.Include(r => r.Client);
-            return View(responsiblePersons.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.EmailSortParm = sortOrder == "Email" ? "email_desc" : "Email";
+            ViewBag.CompanySortParm = sortOrder == "Comp" ? "comp_desc" : "Comp";
+
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var responsiblePersons = db.ResponsiblePersons.Where(n => n.Deleted == false).Include(r => r.Client);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                responsiblePersons = responsiblePersons.Where(s => s.FirstName.Contains(searchString)
+                                       || s.LastName.Contains(searchString)
+                                       || s.Patronymic.Contains(searchString)
+                                       || s.Email.Contains(searchString)
+                                       || s.Client.OrganisationName.Contains(searchString)
+                                       || s.PhoneNumber.Contains(searchString));
+            }
+            
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    responsiblePersons = responsiblePersons.OrderByDescending(s => s.LastName);
+                    break;
+                case "email_desc":
+                    responsiblePersons = responsiblePersons.OrderByDescending(s => s.Email);
+                    break;
+                case "Comp":
+                    responsiblePersons = responsiblePersons.OrderBy(s => s.Client.OrganisationName);
+                    break;
+                case "comp_desc":
+                    responsiblePersons = responsiblePersons.OrderByDescending(s => s.Client.OrganisationName);
+                    break;
+                case "Email":
+                    responsiblePersons = responsiblePersons.OrderBy(s => s.Email);
+                    break;
+
+                default:  // Name ascending 
+                    responsiblePersons = responsiblePersons.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(responsiblePersons.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: ResponsiblePersons/Details/5
@@ -50,7 +105,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ResponsiblePersonKey,FirstName,LastName,Patronymic,ClientKey,PhoneNumber,Email,AdditionalInfo,Deleted")] ResponsiblePerson responsiblePerson)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && !IfExists(responsiblePerson))
             {
                 responsiblePerson.ResponsiblePersonKey = Guid.NewGuid();
                 db.ResponsiblePersons.Add(responsiblePerson);
@@ -60,6 +115,19 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
 
             ViewBag.ClientKey = new SelectList(db.Clients, "ClientKey", "OrganisationName", responsiblePerson.ClientKey);
             return View(responsiblePerson);
+        }
+
+        private bool IfExists(ResponsiblePerson responsiblePerson)
+        {
+            if (db.ResponsiblePersons.Any(a => a.FirstName == responsiblePerson.FirstName
+             && a.LastName == responsiblePerson.LastName
+             && a.Patronymic == responsiblePerson.Patronymic
+             && a.Email == responsiblePerson.Email
+              && a.PhoneNumber == responsiblePerson.PhoneNumber
+              && a.ClientKey == responsiblePerson.ClientKey
+              && a.AdditionalInfo == responsiblePerson.AdditionalInfo
+             && a.Deleted == responsiblePerson.Deleted)) return true;
+            return false;
         }
 
         // GET: ResponsiblePersons/Edit/5
@@ -116,7 +184,9 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         public ActionResult DeleteConfirmed(Guid id)
         {
             ResponsiblePerson responsiblePerson = db.ResponsiblePersons.Find(id);
-            db.ResponsiblePersons.Remove(responsiblePerson);
+            responsiblePerson.Deleted = true;
+            db.Entry(responsiblePerson).State = EntityState.Modified;
+            //   db.ResponsiblePersons.Remove(responsiblePerson);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

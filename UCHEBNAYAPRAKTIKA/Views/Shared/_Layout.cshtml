@@ -16,7 +16,7 @@
 </head>
 <body>
     <nav class="navbar navbar-default navbar-expand-lg" role="navigation">
-        <a class="navbar-brand" href="#">MyRegistry</a>
+        @Html.ActionLink("MyRegistry", "Index", "Home", null, htmlAttributes: new { @class = "navbar-brand" })
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse-01"></button>
         <div class="collapse navbar-collapse" id="navbar-collapse-01">
             <ul class="nav navbar-nav mr-auto">
@@ -33,9 +33,9 @@
                         <li>@Html.ActionLink("Аукционы", "Index", "Auctions")</li>
                         <li>@Html.ActionLink("Города", "Index", "Cities")</li>
                         <li>@Html.ActionLink("Регионы", "Index", "Regions")</li>
-                        <li>@Html.ActionLink("Заказчики", "Index", "ResponsiblePersons")</li>
                         <li class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
+                        <li>@Html.ActionLink("Контакты", "Index", "ResponsiblePersons")</li>
+                        <li>@Html.ActionLink("Заказчики", "Index", "Clients")</li>
                     </ul>
                 </li>
             </ul>

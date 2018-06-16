@@ -32,13 +32,14 @@
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Добавить" class="btn btn-success" />
+                    @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
                 </div>
             </div>
         </div>
     }
 
     <div>
-        @Html.ActionLink("Назад", "Index")
+       
     </div>
    
 </div>

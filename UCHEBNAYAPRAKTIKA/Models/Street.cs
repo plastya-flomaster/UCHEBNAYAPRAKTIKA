@@ -11,7 +11,8 @@ namespace UCHEBNAYAPRAKTIKA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Street
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -22,6 +23,7 @@ namespace UCHEBNAYAPRAKTIKA.Models
     
         public System.Guid StreetKey { get; set; }
         public System.Guid CityKey { get; set; }
+        [Required]
         public string StreetName { get; set; }
         public bool Deleted { get; set; }
     

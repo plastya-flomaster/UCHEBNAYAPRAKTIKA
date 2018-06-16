@@ -27,7 +27,12 @@
                 @Html.DisplayFor(modelItem => item.RegionName)
             </td>
             <td>
-                <span class="badge-info">@item.NumberOfCities</span>
+                @if (@item.NumberOfCities == 0)
+                {
+                    <span class="badge-danger">@item.NumberOfCities</span>
+                }
+                else
+                {<span class="badge-info">@item.NumberOfCities</span>}
             </td>
             <td>
                 @Html.ActionLink("Редактировать", "Edit", new { id = item.RegionKey }) |
