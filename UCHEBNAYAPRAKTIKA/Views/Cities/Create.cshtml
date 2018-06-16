@@ -17,6 +17,7 @@
                 <div class="col-md-5">
                     @Html.DropDownList("RegionKey", null, "Выберите регион", htmlAttributes: new { @class = "form-control btn btn-primary dropdown-toggle" })
                     @Html.ValidationMessageFor(model => model.RegionKey, "", new { @class = "text-danger" })
+
                     <p>Если вы не нашли регион в выпадающем списке, то добавьте его @Html.ActionLink("здесь", "Index", "Regions/Create")</p>
                 </div>
             </div>

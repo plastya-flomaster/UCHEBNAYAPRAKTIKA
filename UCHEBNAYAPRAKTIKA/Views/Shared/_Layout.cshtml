@@ -10,6 +10,7 @@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/jquery-3.3.1.js"></script>
     <script src="~/Content/dist/scripts/flat-ui.min.js"></script>
+
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/dist/css/flat-ui.css" rel="stylesheet" />
 
@@ -22,17 +23,21 @@
             <ul class="nav navbar-nav mr-auto">
                 <li>@Html.ActionLink("Закупки", "Index", "Zakupkas")</li>
                 <li>@Html.ActionLink("Заказчики", "Index", "Clients")</li>
+                <li>@Html.ActionLink("Города", "Index", "Cities")</li>
                 <li></li>
                 <li class="btn-group">
 
-                    <button class="btn btn-default dropdown-toggle m-1" type="button" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle m-2" type="button" data-toggle="dropdown">
                         Подробный справочник
                     </button>
                     <ul class="dropdown-menu" role="menu">
                         <li><a href="#">Адреса</a></li>
                         <li>@Html.ActionLink("Аукционы", "Index", "Auctions")</li>
+                        <li class="divider"></li>
                         <li>@Html.ActionLink("Города", "Index", "Cities")</li>
                         <li>@Html.ActionLink("Регионы", "Index", "Regions")</li>
+                        <li>@Html.ActionLink("Улицы", "Index", "Streets")</li>
+                        <li>@Html.ActionLink("Адреса", "Index", "Adresses")</li>
                         <li class="divider"></li>
                         <li>@Html.ActionLink("Контакты", "Index", "ResponsiblePersons")</li>
                         <li>@Html.ActionLink("Заказчики", "Index", "Clients")</li>

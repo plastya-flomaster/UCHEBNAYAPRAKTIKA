@@ -1,98 +1,113 @@
 ﻿@model UCHEBNAYAPRAKTIKA.Models.Zakupka
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Закупка";
 }
+<script src="~/Scripts/WordScript.js"></script>
 
-<h2>Details</h2>
+<div class="container p-3">
+    <div id="docx">
+        <h4>Закупка</h4>
+        <hr />
 
-<div>
-    <h4>Zakupka</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.WorkTitle)
-        </dt>
+        <h5 style="color:#1abc9c" class="col-md-4 text-md-right">Главное о закупке</h5>
+        <hr />
+        <div class="row">
 
-        <dd>
-            @Html.DisplayFor(model => model.WorkTitle)
-        </dd>
+            <p class="col-md-4 text-black-50 text-md-right">Наименование закупки</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.WorkTitle)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Сумма контракта</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.ContractSum)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Сумма обеспечения</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.CashCover)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Срок сдачи</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.Deadline)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Статус</p>
+            <div class="row col-md-5 offset-md-2">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ContractSum)
-        </dt>
+                @switch (Model.Status.StatusString.Trim())
+                {
+                    case "Внесено в базу":<span style="color:#3498db">@Model.Status.StatusString</span> break;
+                case "На рассмотрении":<span style="color:#9b59b6">@Model.Status.StatusString</span> break;
+            case "Отклонено":<span style="color:#e74c3c">@Model.Status.StatusString</span> break;
+        case "Одобрено":<span style="color:#2ecc71">@Model.Status.StatusString</span> break;
+    default: <span style="color:#2ecc71">@Model.Status.StatusString</span>; break;
+}
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ContractSum)
-        </dd>
+        </div>
+        <hr />
+        <h5 style="color:#1abc9c" class="col-md-4 text-md-right">Адрес объекта</h5>
+        <hr />
+        <div class="row">
+            <p class="col-md-4 text-black-50  text-md-right">Регион</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.Adress.Street.City.Region.RegionName)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Город</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.Adress.Street.City.CityName)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Адрес</p>
+            @*<div class="row col-md-5 offset-md-2">
+                    ул.@Model.Adress.Street.StreetName, @Model.Adress.House,@Model.Adress.Housing, @Model.Adress.Postcode,
+                    офис @Model.Adress.Office
+                </div>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CashCover)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CashCover)
-        </dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </dt>
+        <hr />
+        <h5 style="color:#1abc9c" class="col-md-4 text-md-right">Сведения о заказчике</h5>
+        <hr />
+        <div class="row">
+            <p class="col-md-4 text-black-50  text-md-right">Заказчик</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.ResponsiblePerson.Client.OrganisationName)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Ответственное лицо</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.ResponsiblePerson.LastName) @Html.DisplayFor(model => model.ResponsiblePerson.FirstName) @Html.DisplayFor(model => model.ResponsiblePerson.Patronymic)
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Контакты</p>
+            <div class="row col-md-5 offset-md-2">
+                Почта: @Html.DisplayFor(model => model.ResponsiblePerson.Email)
+                <br> тел: @Html.DisplayFor(model => model.ResponsiblePerson.PhoneNumber)
+                <br> Заметки: @Html.DisplayFor(model => model.ResponsiblePerson.AdditionalInfo)
+            </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Deadline)
-        </dd>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
+        <hr />
+        <h5 style="color:#1abc9c" class="col-md-4 text-md-right">Аукцион</h5>
+        <hr />
+        <div class="row">
 
-        <dd>
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Adress.House)
-        </dt>
+            <p class="col-md-4 text-black-50  text-md-right">Площадка</p>
+            <div class="row col-md-5 offset-md-2">
+                <a href="@Model.Auction.Website" style="text-decoration:underline">@Model.Auction.AuctionName</a>
+            </div>
+            <p class="col-md-4 text-black-50  text-md-right">Часовой пояс</p>
+            <div class="row col-md-5 offset-md-2">
+                @Html.DisplayFor(model => model.TimeZone.TimeZone1)
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Adress.House)
-        </dd>
+    </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Auction.AuctionName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Auction.AuctionName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ResponsiblePerson.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ResponsiblePerson.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Status.StatusString)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Status.StatusString)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TimeZone.TimeZone1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TimeZone.TimeZone1)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ZakupkaKey }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+    <div class="col-12">
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.ZakupkaKey }, htmlAttributes: new { @class = "btn btn-info" })
+        @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default ml-2" })
+        <button onclick="export2Word(window.docx)" class="btn btn-primary float-md-right">вордд</button>
+        <button onclick="export2Word(window.docx)">Export</button>
+        </div>
+    </div>

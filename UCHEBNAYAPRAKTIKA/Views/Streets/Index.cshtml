@@ -1,45 +1,48 @@
-﻿@model IEnumerable<UCHEBNAYAPRAKTIKA.Models.Street>
+﻿@model PagedList.IPagedList<UCHEBNAYAPRAKTIKA.Models.Street>
+@using PagedList.Mvc
 
 @{
-    ViewBag.Title = "Index";
+ ViewBag.Title = "Улицы";
 }
-
-<h2>Index</h2>
+<div class="container p-3">
+<h2>Улицы</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Добавить новую улицу", "Create")
 </p>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.StreetName)
+            @Html.ActionLink("Улица", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City.CityName)
+            @Html.ActionLink("Город", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.StreetName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Deleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City.CityName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.StreetKey }) |
-            @Html.ActionLink("Details", "Details", new { id=item.StreetKey }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.StreetKey })
-        </td>
-    </tr>
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        <p>ул. @Html.DisplayFor(modelItem => item.StreetName)</p>
+
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.City.CityName)
+    </td>
+    <td>
+        @Html.ActionLink("Редактировать", "Edit", new { id = item.StreetKey }) |
+        @Html.ActionLink("Подробнее", "Details", new { id = item.StreetKey }) |
+        @Html.ActionLink("Удалить", "Delete", new { id = item.StreetKey })
+    </td>
+</tr>
 }
 
 </table>
+<p>Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p>
+<div class="pagination pagination-success">
+    @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+</div>
+</div>

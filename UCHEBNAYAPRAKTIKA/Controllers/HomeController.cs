@@ -11,27 +11,29 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
     {
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
+        public ActionResult RegionCity()
+        {
+            List<Region> reg = new List<Region>();
+            reg = db.Regions.ToList();
+            ViewBag.RegionList = new SelectList(reg, "RegionKey", "RegionName");
+            return View();
+        }
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+       public JsonResult GetCities(Guid RegionKey)
         {
-           
-            return View();
+            db.Configuration.ProxyCreationEnabled = false;
+            List<City> cities = db.Cities.Where(a => a.RegionKey == RegionKey).ToList();
+            return Json(cities, JsonRequestBehavior.AllowGet);
         }
         protected override void Dispose(bool disposing)
         {
             db.Dispose();
             base.Dispose(disposing);
         }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }

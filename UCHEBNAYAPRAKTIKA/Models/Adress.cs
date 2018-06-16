@@ -32,5 +32,7 @@ namespace UCHEBNAYAPRAKTIKA.Models
         public virtual Street Street { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakupka> Zakupkas { get; set; }
+
+       
     }
 }

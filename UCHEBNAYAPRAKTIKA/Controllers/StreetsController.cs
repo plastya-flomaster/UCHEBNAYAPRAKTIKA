@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,10 +16,50 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
         // GET: Streets
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             var streets = db.Streets.Include(s => s.City);
-            return View(streets.ToList());
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Reg" ? "reg_desc" : "Reg";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
+            var str = db.Streets.Include(c => c.City);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                str = str.Where(s => s.StreetName.Contains(searchString)
+                                       || s.City.CityName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    str = str.OrderByDescending(s => s.StreetName);
+                    break;
+                case "Reg":
+                    str = str.OrderBy(s => s.City.CityName);
+                    break;
+                case "reg_desc":
+                    str = str.OrderByDescending(s => s.City.CityName);
+                    break;
+                default:  // Name ascending 
+                    str = str.OrderBy(s => s.StreetName);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(str.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Streets/Details/5

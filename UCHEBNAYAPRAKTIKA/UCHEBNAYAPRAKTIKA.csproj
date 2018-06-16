@@ -210,7 +210,7 @@
     <Compile Include="Models\Region.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Repo.cs" />
+    <Compile Include="Models\RegionCityViewModel.cs" />
     <Compile Include="Models\ResponsiblePerson.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -233,6 +233,7 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Content Include="Scripts\WordScript.js" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-grid.css" />
@@ -356,7 +357,6 @@
     <Content Include="Views\Clients\Details.cshtml" />
     <Content Include="Views\Clients\Edit.cshtml" />
     <Content Include="Views\Clients\Index.cshtml" />
-    <Content Include="Views\Clients\ViewPeople.cshtml" />
     <Content Include="Views\Streets\Create.cshtml" />
     <Content Include="Views\Streets\Delete.cshtml" />
     <Content Include="Views\Streets\Details.cshtml" />
@@ -372,6 +372,7 @@
     <Content Include="Views\Zakupkas\Details.cshtml" />
     <Content Include="Views\Zakupkas\Edit.cshtml" />
     <Content Include="Views\Zakupkas\Index.cshtml" />
+    <Content Include="Views\Home\RegionCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

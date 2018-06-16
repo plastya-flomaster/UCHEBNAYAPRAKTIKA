@@ -14,14 +14,8 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
     public class ClientsController : Controller
     {
         private ProcurementRegEntities db = new ProcurementRegEntities();
-        Repo repo = new Repo();
-
-        public ActionResult ViewPeople()
-        {
-            ViewData["People"] = repo.GetPeople();
-            return View();
-        }
-        // GET: Clients
+       
+              // GET: Clients
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
             {
                 ViewBag.CurrentSort = sortOrder;

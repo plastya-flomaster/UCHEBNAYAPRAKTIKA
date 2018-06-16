@@ -39,7 +39,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         // GET: Adresses/Create
         public ActionResult Create()
         {
-            ViewBag.StreetKey = new SelectList(db.Streets, "StreetKey", "StreetName");
+            ViewBag.StreetKey = new SelectList(db.Streets, "StreetKey","StreetName");
             return View();
         }
 

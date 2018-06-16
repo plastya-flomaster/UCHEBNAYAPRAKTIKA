@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,10 +16,72 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
         // GET: Zakupkas
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.RegSortParm = sortOrder == "Reg" ? "reg_desc" : "Reg";
+            ViewBag.ClientSortParm = sortOrder == "Cli" ? "cli_desc" : "Cli";
+
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
             var zakupkas = db.Zakupkas.Include(z => z.Adress).Include(z => z.Auction).Include(z => z.ResponsiblePerson).Include(z => z.Status).Include(z => z.TimeZone);
-            return View(zakupkas.ToList());
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                zakupkas = zakupkas.Where(s => s.WorkTitle.Contains(searchString)
+                                       || s.Auction.AuctionName.Contains(searchString)
+                                       || s.ContractSum.ToString().Contains(searchString)
+                                       || s.ResponsiblePerson.Client.OrganisationName.Contains(searchString)
+                                      );
+            }
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            ViewBag.RegSortParm = sortOrder == "Reg" ? "reg_desc" : "Reg";
+            ViewBag.ClientSortParm = sortOrder == "Cli" ? "cli_desc" : "Cli";
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    zakupkas = zakupkas.OrderByDescending(s => s.WorkTitle);
+                    break;
+                case "Date":
+                    zakupkas = zakupkas.OrderBy(s => s.Deadline);
+                    break;
+                case "date_desc":
+                    zakupkas = zakupkas.OrderByDescending(s => s.Deadline);
+                    break;
+                case "Reg":
+                    zakupkas = zakupkas.OrderBy(s => s.Adress.Street.City.Region.RegionName);
+                    break;
+                case "reg_desc":
+                    zakupkas = zakupkas.OrderByDescending(s => s.Adress.Street.City.Region.RegionName);
+                    break;
+                case "Cli":
+                    zakupkas = zakupkas.OrderBy(s => s.ResponsiblePerson.Client.OrganisationName);
+                    break;
+                case "cli_desc":
+                    zakupkas = zakupkas.OrderByDescending(s => s.ResponsiblePerson.Client.OrganisationName);
+                    break;
+
+                default:  // Name ascending 
+                    zakupkas = zakupkas.OrderBy(s => s.WorkTitle);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = (page ?? 1);
+            return View(zakupkas.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Zakupkas/Details/5

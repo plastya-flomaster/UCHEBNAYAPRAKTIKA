@@ -1,0 +1,29 @@
+﻿@model UCHEBNAYAPRAKTIKA.Models.RegionCityViewModel
+@{
+    ViewBag.Title = "RegionCity";
+}
+
+<h2>RegionCity</h2>
+<div class="form-group">
+@if(ViewBag.RegionList != null)
+{
+    @Html.DropDownListFor(model => model.RegionKey, ViewBag.RegionList as SelectList, "Выберите регион", htmlAttributes: new { @class= "form-control btn btn-primary dropdown-toggle" })
+}
+</div>
+<div class="form-group">
+        @Html.DropDownListFor(model => model.CityKey, new SelectList(" "), "Выберите город", htmlAttributes: new { @class = "form-control btn btn-primary dropdown-toggle" })
+    
+</div>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#RegionKey").change(function () {
+            $.get("Home/GetCities", { RegionKey: $("#RegionKey").val() }, function (data) {
+                $("#CityKey").empty();
+                $.each(data, function (index, row) {
+                    $("#CityKey").append("<option value ='" + row.CityKey+"'>"+row.CityName+"</option>")
+                })
+            })
+        })
+    });
+</script>

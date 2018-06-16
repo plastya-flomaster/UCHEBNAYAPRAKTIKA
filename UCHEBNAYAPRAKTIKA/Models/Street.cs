@@ -20,13 +20,35 @@ namespace UCHEBNAYAPRAKTIKA.Models
         {
             this.Adresses = new HashSet<Adress>();
         }
-    
+        string def = "Не указано";
         public System.Guid StreetKey { get; set; }
         public System.Guid CityKey { get; set; }
+
         [Required]
-        public string StreetName { get; set; }
+        public string StreetName
+        {
+           
+            set
+            {
+                if (!String.IsNullOrWhiteSpace(value))
+                {
+                    def = value;
+                }
+            }
+            get
+            {
+                return def;
+            }
+        }
         public bool Deleted { get; set; }
-    
+
+        public string GetFull
+        {
+          get {
+                return $"{this.StreetName},{this.City.CityName},{this.City.Region.RegionName}";
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Adress> Adresses { get; set; }
         public virtual City City { get; set; }

@@ -1,87 +1,82 @@
-﻿@model IEnumerable<UCHEBNAYAPRAKTIKA.Models.Zakupka>
-
+﻿@model PagedList.IPagedList<UCHEBNAYAPRAKTIKA.Models.Zakupka>
+@using PagedList.Mvc
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Закупки";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.WorkTitle)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ContractSum)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CashCover)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deadline)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Adress.House)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Auction.AuctionName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ResponsiblePerson.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status.StatusString)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TimeZone.TimeZone1)
-        </th>
-        <th></th>
-    </tr>
+<div class="container-fluid">
+    <h2>Закупки</h2>
+    <p>
+        @Html.ActionLink("Добавить закупку", "Create")
+    </p>
+    <table class="table table-hover">
+        <tr >
+            <th>
+                @Html.ActionLink("Наименование работы", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th width="15%">
+                @Html.ActionLink("Сумма контракта", "Index", new { sortOrder = ViewBag.MoneySortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th width="15%">
+                @Html.ActionLink("Срок сдачи", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Регион", "Index", new { sortOrder = ViewBag.RegSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Заказчик", "Index", new { sortOrder = ViewBag.ClientSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th width="10%" align="center">Статус закупки</th>
+            <th></th>
+        </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.WorkTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ContractSum)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CashCover)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Deadline)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Deleted)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Adress.House)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Auction.AuctionName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ResponsiblePerson.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status.StatusString)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TimeZone.TimeZone1)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ZakupkaKey }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ZakupkaKey }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ZakupkaKey })
-        </td>
-    </tr>
-}
+        @foreach (var item in Model)
+        {
+            if (item.Deleted != true)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.WorkTitle)
+            </td>
+            <td >
+                @Html.DisplayFor(modelItem => item.ContractSum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deadline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Adress.Street.City.Region.RegionName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ResponsiblePerson.Client.OrganisationName)
+            </td>
+            <td align="center">
+                @switch (item.Status.StatusString.Trim())
+                {
+                    case "Внесено в базу":<span class="badge badge-pill badge-secondary" style="background-color:#3498db">@item.Status.StatusString</span> break;
+                case "На рассмотрении":<span class="badge badge-pill badge-info" style="background-color:#9b59b6">@item.Status.StatusString </span> break;
+            case "Отклонено":<span class="badge badge-pill badge-danger" style="background-color:#e74c3c">@item.Status.StatusString</span> break;
+        case "Одобрено":<span class="badge badge-pill badge-success" style="background-color:#2ecc71">@item.Status.StatusString</span> break;
+        default: <span class="badge badge-dark">@item.Status.StatusString</span>; break;
+    }
 
-</table>
+
+            </td>
+            <td>
+                @Html.ActionLink("Редактировать", "Edit", new { id = item.ZakupkaKey }) |
+                @Html.ActionLink("Подробнее", "Details", new { id = item.ZakupkaKey }) |
+                @Html.ActionLink("Удалить", "Delete", new { id = item.ZakupkaKey })
+            </td>
+        </tr>
+            }
+                }
+
+    </table>
+    <div class="container">
+        <p>Страница @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) из @Model.PageCount</p>
+        <div class="pagination pagination-success">
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+        </div>
+    </div>
+</div>

@@ -1,42 +1,33 @@
 ﻿@model UCHEBNAYAPRAKTIKA.Models.Street
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Улица";
 }
+<div class="container p-3">
+    <div>
+        <h4>Улица</h4>
+        <hr />
+        <dl>
+            <dt>
+                Город
+            </dt>
 
-<h2>Details</h2>
+            <dd>
+                @Html.DisplayFor(model => model.City.CityName)
+            </dd>
 
-<div>
-    <h4>Street</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.StreetName)
-        </dt>
+            <dt>
+                Улица
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.StreetName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.StreetName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.City.CityName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.City.CityName)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.StreetKey }, htmlAttributes: new { @class = "btn btn-info" })
+        @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.StreetKey }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -32,7 +32,7 @@ namespace UCHEBNAYAPRAKTIKA.Models
         public decimal CashCover { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:D}", ApplyFormatInEditMode = true)]
         public System.DateTime Deadline { get; set; }
 
         public Nullable<System.Guid> ResponsiblePersonKey { get; set; }
