@@ -11,7 +11,7 @@ namespace UCHEBNAYAPRAKTIKA.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Adress
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -19,7 +19,7 @@ namespace UCHEBNAYAPRAKTIKA.Models
         {
             this.Zakupkas = new HashSet<Zakupka>();
         }
-    
+        string ad;
         public System.Guid AdressKey { get; set; }
         public System.Guid StreetKey { get; set; }
         public string House { get; set; }
@@ -28,11 +28,22 @@ namespace UCHEBNAYAPRAKTIKA.Models
         public string Office { get; set; }
         public string Postcode { get; set; }
         public bool Deleted { get; set; }
-    
+
+        public string ADRESS
+        {
+            get {
+                return  $"{this.Street.StreetName}, {this.Buildung}, ξτ.{Housing}, {this.Street.City.CityName}, {this.Street.City.Region.RegionName}";
+            }
+           
+            }
         public virtual Street Street { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zakupka> Zakupkas { get; set; }
 
-       
+       public string Show()
+        {
+            return $"{this.Street.StreetName}, {this.Buildung}, ξτ.{Housing}, {this.Street.City.CityName}, {this.Street.City.Region.RegionName}, {this.Postcode}";
+
+        }
     }
 }

@@ -102,9 +102,9 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         // GET: Zakupkas/Create
         public ActionResult Create()
         {
-            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "House");
+            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "ADRESS");
             ViewBag.AuctionKey = new SelectList(db.Auctions, "AuctionKey", "AuctionName");
-            ViewBag.ResponsiblePersonKey = new SelectList(db.ResponsiblePersons, "ResponsiblePersonKey", "FirstName");
+            ViewBag.ResponsiblePersonKey = new SelectList(db.ResponsiblePersons, "ResponsiblePersonKey", "FIO");
             ViewBag.StatusKey = new SelectList(db.Status, "StatusKey", "StatusString");
             ViewBag.TimeZoneKey = new SelectList(db.TimeZones, "TimeZoneKey", "TimeZone1");
             return View();
@@ -125,7 +125,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "House", zakupka.AdressKey);
+            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "ADRESS", zakupka.AdressKey);
             ViewBag.AuctionKey = new SelectList(db.Auctions, "AuctionKey", "AuctionName", zakupka.AuctionKey);
             ViewBag.ResponsiblePersonKey = new SelectList(db.ResponsiblePersons, "ResponsiblePersonKey", "FirstName", zakupka.ResponsiblePersonKey);
             ViewBag.StatusKey = new SelectList(db.Status, "StatusKey", "StatusString", zakupka.StatusKey);
@@ -145,9 +145,9 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "House", zakupka.AdressKey);
+            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "ADRESS", zakupka.AdressKey);
             ViewBag.AuctionKey = new SelectList(db.Auctions, "AuctionKey", "AuctionName", zakupka.AuctionKey);
-            ViewBag.ResponsiblePersonKey = new SelectList(db.ResponsiblePersons, "ResponsiblePersonKey", "FirstName", zakupka.ResponsiblePersonKey);
+            ViewBag.ResponsiblePersonKey = new SelectList(db.ResponsiblePersons, "ResponsiblePersonKey", "FIO", zakupka.ResponsiblePersonKey);
             ViewBag.StatusKey = new SelectList(db.Status, "StatusKey", "StatusString", zakupka.StatusKey);
             ViewBag.TimeZoneKey = new SelectList(db.TimeZones, "TimeZoneKey", "TimeZone1", zakupka.TimeZoneKey);
             return View(zakupka);
@@ -166,9 +166,9 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "House", zakupka.AdressKey);
+            ViewBag.AdressKey = new SelectList(db.Adresses, "AdressKey", "ADRESS", zakupka.AdressKey);
             ViewBag.AuctionKey = new SelectList(db.Auctions, "AuctionKey", "AuctionName", zakupka.AuctionKey);
-            ViewBag.ResponsiblePersonKey = new SelectList(db.ResponsiblePersons, "ResponsiblePersonKey", "FirstName", zakupka.ResponsiblePersonKey);
+            ViewBag.ResponsiblePersonKey = new SelectList(db.ResponsiblePersons, "ResponsiblePersonKey", "FIO", zakupka.ResponsiblePersonKey);
             ViewBag.StatusKey = new SelectList(db.Status, "StatusKey", "StatusString", zakupka.StatusKey);
             ViewBag.TimeZoneKey = new SelectList(db.TimeZones, "TimeZoneKey", "TimeZone1", zakupka.TimeZoneKey);
             return View(zakupka);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PagedList;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -15,10 +16,51 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         private ProcurementRegEntities db = new ProcurementRegEntities();
 
         // GET: Adresses
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Reg" ? "reg_desc" : "Reg";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewBag.CurrentFilter = searchString;
+
             var adresses = db.Adresses.Include(a => a.Street);
-            return View(adresses.ToList());
+
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                adresses = adresses.Where(s => s.Postcode.Contains(searchString)
+                                       || s.Street.City.CityName.Contains(searchString)
+                                       || s.Street.StreetName.Contains(searchString));
+            }
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    adresses = adresses.OrderByDescending(s => s.Street.StreetName);
+                    break;
+                case "Reg":
+                    adresses = adresses.OrderBy(s => s.Street.City.CityName);
+                    break;
+                case "reg_desc":
+                    adresses = adresses.OrderByDescending(s => s.Street.City.CityName);
+                    break;
+                default:  // Name ascending 
+                    adresses = adresses.OrderBy(s => s.Street.StreetName);
+                    break;
+            }
+
+            int pageSize = 3;
+            int pageNumber = (page ?? 1);
+            return View(adresses.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Adresses/Details/5
@@ -40,6 +82,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
         public ActionResult Create()
         {
             ViewBag.StreetKey = new SelectList(db.Streets, "StreetKey","StreetName");
+            ViewBag.CityKey = new SelectList(db.Adresses.Include(a => a.Street.City), "CityKey", "CityName");
             return View();
         }
 

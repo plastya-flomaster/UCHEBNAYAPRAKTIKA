@@ -1,10 +1,4 @@
-﻿/* HTML to Microsoft Word Export Demo 
- * This code demonstrates how to export an html element to Microsoft Word
- * with CSS styles to set page orientation and paper size.
- * Tested with Word 2010, 2013 and FireFox, Chrome, Opera, IE10-11
- * Fails in legacy browsers (IE<10) that lack window.Blob object
- */
-export2Word(element) = function () {
+﻿export2Word(element) = function () {
   
     var html, link, blob, url, css;
 

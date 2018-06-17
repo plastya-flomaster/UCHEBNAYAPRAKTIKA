@@ -14,12 +14,11 @@
     <div class="form-horizontal">
         <h4>Добавить новый адрес</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            <p class="control-label col-md-2">Улица</p>
-            <div class="col-md-10">
-              @Html.DropDownList("StreetKey", null, "Выберите улицу", htmlAttributes: new { @class = "form-control" })
-
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })       
+        <div class="row">
+            <p class="control-label col-md-2 text-md-right">Улица</p>
+            <div class="col-md-5">
+                @Html.DropDownList("StreetKey", null, "Выберите улицу", htmlAttributes: new { @class = "btn btn-primary dropdown-toggle" })
 
                 @Html.ValidationMessageFor(model => model.StreetKey, "", new { @class = "text-danger" })
             </div>
@@ -27,47 +26,41 @@
         <div class="form-group">
             <div class="row">
                 <p class="control-label col-md-2 text-md-right"> Дом</p>
-                <div class="col-md-2 ml-2">
+                <div class="col-md-3 ml-2">
                     @Html.EditorFor(model => model.House, "5", new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.House, "", new { @class = "text-danger" })
                 </div>
-                <p class="control-label col-md-2 offset-2 text-md-right">Строение</p>
-                <div class="col-md-2 ml-2">
+            </div>
+            <div class="row">
+                <p class="control-label col-md-2 text-md-right">Строение</p>
+                <div class="col-md-3 ml-2">
                     @Html.EditorFor(model => model.Buildung, "6", new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Buildung, "", new { @class = "text-danger" })
                 </div>
             </div>
             <div class="row">
-                <p class="control-label col-md-2 offset-2 text-md-right">Корпус</p>
-                <div class="col-md-2 ml-2">
+                <p class="control-label col-md-2 text-md-right">Корпус</p>
+                <div class="col-md-3 ml-2">
                     @Html.EditorFor(model => model.Housing, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Housing, "", new { @class = "text-danger" })
                 </div>
-                <p class="control-label col-md-2 offset-2 text-md-right">Корпус</p>
-                <div class="col-md-2 ml-2">
+            </div>
+            <div class="row">
+                <p class="control-label col-md-2 text-md-right">Офис</p>
+                <div class="col-md-3 ml-2">
                     @Html.EditorFor(model => model.Office, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.Office, "", new { @class = "text-danger" })
                 </div>
             </div>
-        </div>
-       
-            
-           
-        
-
-       
-          
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Postcode, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Postcode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+            <div class="row">
+                <p class="control-label col-md-2  text-md-right">Почтовый индекс</p>
+                <div class="col-md-3 ml-2">
+                    @Html.EditorFor(model => model.Postcode, "000000", new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
+                </div>
             </div>
         </div>
-
-
+    </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Добавить" class="btn btn-success" />

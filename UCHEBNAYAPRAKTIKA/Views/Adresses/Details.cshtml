@@ -1,74 +1,49 @@
 ﻿@model UCHEBNAYAPRAKTIKA.Models.Adress
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Адрес";
 }
 
-<h2>Details</h2>
 
-<div>
-    <h4>Adress</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.House)
-        </dt>
+<div class="container p-3">
+    <div>
+        <h4>Адрес</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                Улица
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Street.StreetName),  @Html.DisplayFor(model => model.House), корпус @Html.DisplayFor(model => model.Buildung), строение @Html.DisplayFor(model => model.Housing)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.House)
-        </dd>
+            <dt>
+                Офис
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Buildung)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Office)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Buildung)
-        </dd>
+            <dt>
+                Почтовый индекс
+            </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Housing)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Postcode)
+            </dd>
+            <dt>
+Регион            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Housing)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Street.City.CityName),   @Html.DisplayFor(model => model.Street.City.Region.RegionName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Office)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Office)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Postcode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Postcode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Street.StreetName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Street.StreetName)
-        </dd>
-
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Редактировать", "Edit", new { id = Model.AdressKey }, htmlAttributes: new { @class = "btn btn-info" })
+        @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.AdressKey }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

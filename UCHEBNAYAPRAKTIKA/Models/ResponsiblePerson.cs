@@ -24,7 +24,7 @@ namespace UCHEBNAYAPRAKTIKA.Models
         private string defNum = "Не указан";
         private string defE = "Не указан";
         private string defi = "Не указанo";
-        private string fio;
+        private string fio = "Не указано";
 
         public System.Guid ResponsiblePersonKey { get; set; }
         [Required]
@@ -89,20 +89,9 @@ namespace UCHEBNAYAPRAKTIKA.Models
         public bool Deleted { get; set; }
         public string FIO
             {
-            get
+               get
             {
-                return fio;
-            }
-            set
-            {
-                if (Patronymic == "Не указано")
-                {
-                    fio = $"{LastName} {FirstName}";
-                }
-                else
-                {
-                    fio = $"{LastName} {FirstName} {Patronymic}";
-                }
+                return $"{this.LastName} {this.FirstName} {this.Patronymic}";
             }
         }
         public virtual Client Client { get; set; }

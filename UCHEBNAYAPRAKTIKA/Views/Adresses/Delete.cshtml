@@ -1,80 +1,38 @@
 ﻿@model UCHEBNAYAPRAKTIKA.Models.Adress
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Адрес";
 }
+<div class="container p-3">
+    <h2>Подтвердите удаление</h2>
 
-<h2>Delete</h2>
+    <h5>Вы уверены, что хотите удалить этот адрес?</h5>
+    <div>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt class="text-black-50">Город        </dt>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Adress</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.House)
-        </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Street.City.CityName)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.House)
-        </dd>
+            <dt class="text-black-50">Улица        </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Buildung)
-        </dt>
+            <dd>
+                ул @Html.DisplayFor(model => model.Street.StreetName), @Html.DisplayFor(model => model.House), 
+                <br />Почтовый индекс: @Html.DisplayFor(model => model.Postcode)
+            </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Buildung)
-        </dd>
+        </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Housing)
-        </dt>
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.Housing)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Office)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Office)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Postcode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Postcode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Street.StreetName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Street.StreetName)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
-    }
+            <div class="form-actions no-color">
+                <input type="submit" value="Удалить" class="btn btn-danger" />
+                @Html.ActionLink("Назад", "Index", null, htmlAttributes: new { @class = "btn btn-default" })
+            </div>
+        }
+    </div>
 </div>
