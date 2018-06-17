@@ -1,4 +1,4 @@
-﻿export2Word(element) = function () {
+﻿function export2Word(element) {
   
     var html, link, blob, url, css;
 

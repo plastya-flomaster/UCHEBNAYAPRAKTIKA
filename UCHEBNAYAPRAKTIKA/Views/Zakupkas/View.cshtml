@@ -1,0 +1,91 @@
+﻿@model UCHEBNAYAPRAKTIKA.Models.ZakupkaListViewModel
+
+@{
+    ViewBag.Title = "Каталог игроков";
+}
+
+<h2>Сортировка по регионам</h2>
+
+<p>
+    @Html.ActionLink("Добавить игрока", "Create")
+</p>
+<hr />
+<form method="get">
+    <div class="form-inline mt-2 mb-2">
+        <label class="control-label">Регион: </label>
+        @Html.DropDownList("region", Model.Regions as SelectList,
+                    htmlAttributes: new { @class = "form-control" })
+
+        @*<label class="control-label">Заказчик: </label>
+            @Html.DropDownList("client", Model.Clients as SelectList,
+                        htmlAttributes: new { @class = "form-control" })*@
+
+
+        <input type="submit" value="Фильтр" class="btn btn-info offset-1" />
+    </div>
+</form>
+<hr />
+
+<table class="table table-hover">
+    <tr>
+        <th>
+            Наименование работы
+        </th>
+        <th width="15%">
+            Сумма контракта"
+        </th>
+        <th width="15%">
+            Срок сдачи
+        </th>
+        <th>
+            Регион
+        </th>
+        <th>
+            Заказчик
+        </th>
+        <th width="10%" align="center">Статус закупки</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model.Zakupkas)
+    {
+        if (item.Deleted != true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.WorkTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ContractSum)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Deadline)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Adress.Street.City.Region.RegionName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResponsiblePerson.Client.OrganisationName)
+                </td>
+                <td align="center">
+                    @switch (item.Status.StatusString.Trim())
+                    {
+                        case "Внесено в базу":<span class="badge badge-pill badge-secondary" style="background-color:#3498db">@item.Status.StatusString</span> break;
+                    case "На рассмотрении":<span class="badge badge-pill badge-info" style="background-color:#9b59b6">@item.Status.StatusString </span> break;
+                case "Отклонено":<span class="badge badge-pill badge-danger" style="background-color:#e74c3c">@item.Status.StatusString</span> break;
+            case "Одобрено":<span class="badge badge-pill badge-success" style="background-color:#2ecc71">@item.Status.StatusString</span> break;
+        default: <span class="badge badge-dark">@item.Status.StatusString</span>; break;
+}
+
+
+                </td>
+                <td>
+                    @Html.ActionLink("Редактировать", "Edit", new { id = item.ZakupkaKey }) |
+                    @Html.ActionLink("Подробнее", "Details", new { id = item.ZakupkaKey }) |
+                    @Html.ActionLink("Удалить", "Delete", new { id = item.ZakupkaKey })
+                </td>
+            </tr>
+        }
+    }
+
+</table>

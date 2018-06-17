@@ -11,7 +11,7 @@
         @Html.ActionLink("Добавить закупку", "Create")
     </p>
     <table class="table table-hover">
-        <tr >
+        <tr>
             <th>
                 @Html.ActionLink("Наименование работы", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
             </th>
@@ -35,42 +35,42 @@
         {
             if (item.Deleted != true)
             {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.WorkTitle)
-            </td>
-            <td >
-                @Html.DisplayFor(modelItem => item.ContractSum)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Deadline)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Adress.Street.City.Region.RegionName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ResponsiblePerson.Client.OrganisationName)
-            </td>
-            <td align="center">
-                @switch (item.Status.StatusString.Trim())
-                {
-                    case "Внесено в базу":<span class="badge badge-pill badge-secondary" style="background-color:#3498db">@item.Status.StatusString</span> break;
-                case "На рассмотрении":<span class="badge badge-pill badge-info" style="background-color:#9b59b6">@item.Status.StatusString </span> break;
-            case "Отклонено":<span class="badge badge-pill badge-danger" style="background-color:#e74c3c">@item.Status.StatusString</span> break;
-        case "Одобрено":<span class="badge badge-pill badge-success" style="background-color:#2ecc71">@item.Status.StatusString</span> break;
-        default: <span class="badge badge-dark">@item.Status.StatusString</span>; break;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkTitle)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContractSum)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Deadline)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Adress.Street.City.Region.RegionName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ResponsiblePerson.Client.OrganisationName)
+                    </td>
+                    <td align="center">
+                        @switch (item.Status.StatusString.Trim())
+                        {
+                            case "Внесено в базу":<span class="badge badge-pill badge-secondary" style="background-color:#3498db">@item.Status.StatusString</span> break;
+                        case "На рассмотрении":<span class="badge badge-pill badge-info" style="background-color:#9b59b6">@item.Status.StatusString </span> break;
+                    case "Отклонено":<span class="badge badge-pill badge-danger" style="background-color:#e74c3c">@item.Status.StatusString</span> break;
+                case "Одобрено":<span class="badge badge-pill badge-success" style="background-color:#2ecc71">@item.Status.StatusString</span> break;
+            default: <span class="badge badge-dark">@item.Status.StatusString</span>; break;
     }
 
 
-            </td>
-            <td>
-                @Html.ActionLink("Редактировать", "Edit", new { id = item.ZakupkaKey }) |
-                @Html.ActionLink("Подробнее", "Details", new { id = item.ZakupkaKey }) |
-                @Html.ActionLink("Удалить", "Delete", new { id = item.ZakupkaKey })
-            </td>
-        </tr>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Редактировать", "Edit", new { id = item.ZakupkaKey }) |
+                        @Html.ActionLink("Подробнее", "Details", new { id = item.ZakupkaKey }) |
+                        @Html.ActionLink("Удалить", "Delete", new { id = item.ZakupkaKey })
+                    </td>
+                </tr>
             }
-                }
+        }
 
     </table>
     <div class="container">
@@ -79,4 +79,6 @@
             @Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
         </div>
     </div>
+     @Html.ActionLink("Расширенный поиск", "View")
+
 </div>

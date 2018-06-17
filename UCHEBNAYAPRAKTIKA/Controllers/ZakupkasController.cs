@@ -83,7 +83,38 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             int pageNumber = (page ?? 1);
             return View(zakupkas.ToPagedList(pageNumber, pageSize));
         }
+        public static Guid key = Guid.Parse("E558B576-254F-4993-B969-1ADB0D2A57C9");
 
+        public ActionResult View(Guid? region)
+        {
+            IQueryable<Zakupka> zakupkas = db.Zakupkas.Include(a => a.Adress).Include(z => z.Auction).Include(z => z.ResponsiblePerson).Include(z => z.Status).Include(z => z.TimeZone);
+            
+            if (region != null && region != key)
+            {
+                zakupkas = zakupkas.Where(p => p.Adress.Street.City.Region.RegionKey == region);
+            }
+            //if (!String.IsNullOrEmpty(client) && !client.Equals("Все"))
+            //{
+            //    zakupkas = zakupkas.Where(p => p.ResponsiblePerson.Client.OrganisationName == client);
+            //}
+
+            List<Region> regs = db.Regions.ToList();
+            //List<Client> cl = db.Clients.ToList();
+
+            // устанавливаем начальный элемент, который позволит выбрать всех
+            regs.Insert(0, new Region { RegionName = "Все", RegionKey = key });
+
+            // устанавливаем начальный элемент, который позволит выбрать всех
+          //  cl.Insert(0, new Client { OrganisationName = "Все", ClientKey = Guid.NewGuid(), INN = "1", KPP = "1" });
+
+            ZakupkaListViewModel plvm = new ZakupkaListViewModel
+            {
+                Zakupkas = zakupkas.ToList(),
+                Regions = new SelectList(regs, "RegionKey", "RegionName"),
+                //Clients = new SelectList(cl, "ClientKey", "OrganisationName"),
+            };
+            return View(plvm);
+        }
         // GET: Zakupkas/Details/5
         public ActionResult Details(Guid? id)
         {

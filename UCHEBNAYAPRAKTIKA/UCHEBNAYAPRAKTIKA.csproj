@@ -210,7 +210,7 @@
     <Compile Include="Models\Region.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\RegionCityViewModel.cs" />
+    <Compile Include="Models\ZakupkaListViewModel.cs" />
     <Compile Include="Models\ResponsiblePerson.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -287,6 +287,8 @@
     <Content Include="Scripts\bootstrap.js.map" />
     <Content Include="Scripts\bootstrap.bundle.min.js.map" />
     <Content Include="Scripts\bootstrap.bundle.js.map" />
+    <None Include="Properties\PublishProfiles\plastya - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\plastyawebsite2 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -373,10 +375,10 @@
     <Content Include="Views\Zakupkas\Edit.cshtml" />
     <Content Include="Views\Zakupkas\Index.cshtml" />
     <Content Include="Views\Home\RegionCity.cshtml" />
+    <Content Include="Views\Zakupkas\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

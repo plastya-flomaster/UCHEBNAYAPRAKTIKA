@@ -46,7 +46,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.ResponsiblePersonKey, "ResponsiblePersonKey", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.ResponsiblePersonKey, "ResponsiblePersonKey", htmlAttributes: new { @class = "btn btn-primary dropdown-toggle" })
                 <div class="col-md-10">
                     @Html.DropDownList("ResponsiblePersonKey", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.ResponsiblePersonKey, "", new { @class = "text-danger" })
@@ -62,7 +62,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.AuctionKey, "AuctionKey", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.AuctionKey, "AuctionKey", htmlAttributes: new { @class = "btn btn-primary dropdown-toggle" })
                 <div class="col-md-10">
                     @Html.DropDownList("AuctionKey", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.AuctionKey, "", new { @class = "text-danger" })
@@ -70,7 +70,7 @@
             </div>
 
             <div class="form-group">
-                @Html.LabelFor(model => model.AdressKey, "AdressKey", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.AdressKey, "AdressKey", htmlAttributes: new { @class = "btn btn-primary dropdown-toggle" })
                 <div class="col-md-10">
                     @Html.DropDownList("AdressKey", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.AdressKey, "", new { @class = "text-danger" })
