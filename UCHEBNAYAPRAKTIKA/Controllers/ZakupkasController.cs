@@ -35,7 +35,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             }
 
             ViewBag.CurrentFilter = searchString;
-            var zakupkas = db.Zakupkas.Include(z => z.Adress).Include(z => z.Auction).Include(z => z.ResponsiblePerson).Include(z => z.Status).Include(z => z.TimeZone);
+            var zakupkas = db.Zakupkas.Where(a => a.Deleted != true).Include(z => z.Adress).Include(z => z.Auction).Include(z => z.ResponsiblePerson).Include(z => z.Status).Include(z => z.TimeZone);
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -84,36 +84,37 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             return View(zakupkas.ToPagedList(pageNumber, pageSize));
         }
         public static Guid key = Guid.Parse("E558B576-254F-4993-B969-1ADB0D2A57C9");
+        public static Guid key2 = Guid.Parse("BFAE6550 - 93B2 - 4D78 - AB24 - 83CB3C2A4412");
 
-        public ActionResult View(Guid? region)
+        public ActionResult View(Guid? region, Guid? status)
         {
-            IQueryable<Zakupka> zakupkas = db.Zakupkas.Include(a => a.Adress).Include(z => z.Auction).Include(z => z.ResponsiblePerson).Include(z => z.Status).Include(z => z.TimeZone);
+            IQueryable<Zakupka> zakupkas = db.Zakupkas.Where(a => a.Deleted != true).Include(a => a.Adress).Include(z => z.Auction).Include(z => z.ResponsiblePerson).Include(z => z.Status).Include(z => z.TimeZone);
             
             if (region != null && region != key)
             {
                 zakupkas = zakupkas.Where(p => p.Adress.Street.City.Region.RegionKey == region);
             }
-            //if (!String.IsNullOrEmpty(client) && !client.Equals("Все"))
-            //{
-            //    zakupkas = zakupkas.Where(p => p.ResponsiblePerson.Client.OrganisationName == client);
-            //}
+            if (status != null && status != key2)
+            {
+               zakupkas = zakupkas.Where(p => p.StatusKey == status);
+            }
 
-            List<Region> regs = db.Regions.ToList();
-            //List<Client> cl = db.Clients.ToList();
+            List<Region> regs = db.Regions.Where(r => r.Deleted != true).ToList();
+            List<Status> stat = db.Status.Where(r => r.Deleted != true).ToList();
 
             // устанавливаем начальный элемент, который позволит выбрать всех
             regs.Insert(0, new Region { RegionName = "Все", RegionKey = key });
 
             // устанавливаем начальный элемент, который позволит выбрать всех
-          //  cl.Insert(0, new Client { OrganisationName = "Все", ClientKey = Guid.NewGuid(), INN = "1", KPP = "1" });
+            stat.Insert(0, new Status { StatusString = "Любой", StatusKey = key2 });
 
-            ZakupkaListViewModel plvm = new ZakupkaListViewModel
+            ZakupkaListViewModel йий = new ZakupkaListViewModel
             {
                 Zakupkas = zakupkas.ToList(),
                 Regions = new SelectList(regs, "RegionKey", "RegionName"),
-                //Clients = new SelectList(cl, "ClientKey", "OrganisationName"),
+                Statuses = new SelectList(stat, "StatusKey", "StatusString"),
             };
-            return View(plvm);
+            return View(йий);
         }
         // GET: Zakupkas/Details/5
         public ActionResult Details(Guid? id)
@@ -126,7 +127,8 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
             if (zakupka == null)
             {
                 return HttpNotFound();
-            }
+            }           
+
             return View(zakupka);
         }
 

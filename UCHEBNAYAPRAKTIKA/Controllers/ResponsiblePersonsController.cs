@@ -36,7 +36,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var responsiblePersons = db.ResponsiblePersons.Where(n => n.Deleted == false).Include(r => r.Client);
+            var responsiblePersons = db.ResponsiblePersons.Where(n => n.Deleted != true).Include(r => r.Client);
 
             if (!String.IsNullOrEmpty(searchString))
             {

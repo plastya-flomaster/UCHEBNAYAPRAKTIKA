@@ -11,6 +11,6 @@ namespace UCHEBNAYAPRAKTIKA.Models
         
             public IEnumerable<Zakupka> Zakupkas { get; set; }
             public SelectList Regions { get; set; }
-            //public SelectList Clients { get; set; }
+            public SelectList Statuses { get; set; }
       }
 }

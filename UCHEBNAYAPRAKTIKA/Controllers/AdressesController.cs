@@ -33,7 +33,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var adresses = db.Adresses.Include(a => a.Street);
+            var adresses = db.Adresses.Where(a => a.Deleted != true).Include(a => a.Street);
 
 
             if (!String.IsNullOrEmpty(searchString))

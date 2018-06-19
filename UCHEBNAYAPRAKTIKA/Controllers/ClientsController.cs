@@ -36,6 +36,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
                 ViewBag.CurrentFilter = searchString;
 
                 var clients = from s in db.Clients
+                              where s.Deleted != true
                                select s;
 
                 if (!String.IsNullOrEmpty(searchString))

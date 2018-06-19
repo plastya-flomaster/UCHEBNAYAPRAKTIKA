@@ -33,7 +33,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var cities = db.Cities.Include(c => c.Region);
+            var cities = db.Cities.Where(a => a.Deleted != true).Include(c => c.Region);
 
             if (!String.IsNullOrEmpty(searchString))
             {

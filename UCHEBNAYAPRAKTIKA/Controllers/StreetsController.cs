@@ -34,7 +34,7 @@ namespace UCHEBNAYAPRAKTIKA.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
-            var str = db.Streets.Include(c => c.City);
+            var str = db.Streets.Where(a => a.Deleted != true).Include(c => c.City);
 
             if (!String.IsNullOrEmpty(searchString))
             {
